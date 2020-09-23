@@ -1,0 +1,61 @@
+﻿@model IEnumerable<MvcMovie.Models.Movie>
+
+@{
+    ViewData["Title"] = "Genre";
+}
+
+<h1>Browse Popular Genres</h1>
+
+<table class="table">
+    <tr>
+        <td>
+            <a asp-action="MoviesByGenre" asp-route-id="Comedy">
+                <img class="resize" alt="Comedy" src="https://www.filmsite.org/images/comedy-genre.jpg"  />
+            </a>
+        </td>
+        <td>
+            <a asp-action="MoviesByGenre" asp-route-id="Action">
+                <img class="resize" alt="Action" src="https://www.filmsite.org/images/action-genre.jpg" />
+            </a>
+        </td>
+        <td>
+            <a asp-action="MoviesByGenre" asp-route-id="Sci Fi">
+                <img class="resize" alt="Sci Fi" src="https://www.filmsite.org/images/scifi-genre.jpg" />
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a asp-action="MoviesByGenre" asp-route-id="Romance">
+                <img class="resize" alt="Romance" src="https://www.filmsite.org/images/romance-genre.jpg" />
+            </a>
+        </td>
+        <td>
+            <a asp-action="MoviesByGenre" asp-route-id="Horror">
+                <img class="resize" alt="Horror" src="https://www.filmsite.org/images/horror-genre.jpg" />
+            </a>
+        </td>
+        <td>
+            <a asp-action="MoviesByGenre" asp-route-id="Fantasy">
+                <img class="resize" alt="Fantasy" src="https://www.filmsite.org/images/fantasy-genre.jpg" />
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a asp-action="MoviesByGenre" asp-route-id="Western">
+                <img class="resize" alt="Western" src="https://www.filmsite.org/images/westerns-genre.jpg" />
+            </a>
+        </td>
+        <td>
+            <a asp-action="MoviesByGenre" asp-route-id="Animated">
+                <img class="resize" alt="Animation" src="https://www.filmsite.org/images/animated-genre.jpg" />
+            </a>
+        </td>
+        <td>
+            <a asp-action="MoviesByGenre" asp-route-id="Adventure">
+                <img class="resize" alt="Adventure" src="https://www.filmsite.org/images/adventure-genre.jpg" />
+            </a>
+        </td>
+    </tr>
+</table>
