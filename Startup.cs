@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using MvcMovie.Data;
 using Microsoft.Extensions.Configuration;
@@ -33,6 +34,7 @@ namespace MvcMovie
             services.AddDbContext<SecurityContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("SecurityContext")));
             services.AddControllersWithViews();
+            services.AddSession();
             services.AddRazorPages();
         }
 
@@ -57,6 +59,8 @@ namespace MvcMovie
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

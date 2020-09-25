@@ -25,6 +25,7 @@ namespace MvcMovie.Controllers
         public async Task<IActionResult> Index()
         {
             var movies = from m in _context.Movie select m;
+            //ViewBag.Movies = movies;
             return View(await movies.ToListAsync());
         }
 

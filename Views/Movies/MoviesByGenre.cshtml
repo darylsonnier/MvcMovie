@@ -25,6 +25,9 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Price)
                 </th>
+                <th>
+                    Purchase
+                </th>
                 <th></th>
             </tr>
         </thead>
@@ -48,6 +51,9 @@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        <a asp-controller="cart" asp-action="buy" asp-route-id="@item.Title">Add to cart</a>
                     </td>
                     <td>
                     </td>

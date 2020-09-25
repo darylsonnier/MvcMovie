@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewData["Title"] = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>View</h1>
+
+<table cellpadding="2" cellspacing="2" border="1">
+    <tr>
+        <th>Option</th>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Photo</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Sub Total</th>
+    </tr>
+    @foreach (var item in ViewBag.cart)
+    {
+        <tr>
+            <td><a asp-controller="cart" asp-action="remove" asp-route-id="@item.Movie.Title">Remove</a></td>
+            <td>@item.Movie.Title</td>
+            <td><img src=@item.Movie.ImageURL width="60" /> </td>
+            <td>@item.Movie.Price</td>
+            <td>@item.Quantity</td>
+            <td>@(item.Movie.Price * item.Quantity)</td>
+        </tr>
+    }
+    <tr>
+        <td align="right" colspan="6">Sum</td>
+        <td>
+            @ViewBag.total
+        </td>
+    </tr>
+</table>
+<br>
+<a asp-controller="movies" asp-action="index">Continue Shopping</a>
