@@ -2,3 +2,10 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
+
+function displayModal(ID) {
+    var mod = ID + "_modal";
+    var modal = document.getElementById(mod);
+    modal.style.display = "block";
+    modal.addEventListener("click", function () { modal.style.display = "none" });
+}

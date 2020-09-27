@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<MvcMovie.Models.Movie>
+@using MvcMovie.Helpers;
 
 @{
     ViewData["Title"] = "Daryl's Movie Emporium";
@@ -26,6 +27,9 @@
                     @Html.DisplayNameFor(model => model.Price)
                 </th>
                 <th>
+                    Description
+                </th>
+                <th>
                     Purchase
                 </th>
                 <th></th>
@@ -34,6 +38,7 @@
         <tbody>
             @foreach (var item in Model)
             {
+
                 <tr class="mList">
                     <td>
                         <div class="player">
@@ -53,12 +58,27 @@
                         @Html.DisplayFor(modelItem => item.Price)
                     </td>
                     <td>
-                        <a asp-controller="cart" asp-action="buy" asp-route-id="@item.Title">Add to cart</a>
+                        <button id=@HelperClass.Combine(Html.DisplayTextFor(modelItem => item.Title), string.Empty) class="btn-primary" onclick="displayModal(this.id)">Description</button>
+                        
+                        <div id=@HelperClass.Combine(Html.DisplayTextFor(modelItem => item.Title), "_modal") class="modal">
+                            <div class="modal-content">
+                                <span class="close">&times;</span>
+                                <p>@Html.DisplayTextFor(modelItem => item.Description)</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <a asp-controller="Cart" asp-action="buy" asp-route-id="@item.Title">Add to cart</a>
                     </td>
                     <td>
                     </td>
                 </tr>
             }
+            <tr>
+                <td>
+                    <a asp-action="Index" asp-controller="Movies">Browse Genres</a>
+                </td>
+            </tr>
         </tbody>
     </table>
     <!-- Jquery -->
@@ -69,7 +89,6 @@
 
     <!-- GRT Youtube Popup -->
     <script src="~/js/grt-youtube-popup.js"></script>
-
     <script>$(".youtube-link").grtyoutube({ autoPlay: true });</script>
 
 </body>

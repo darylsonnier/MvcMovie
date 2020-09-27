@@ -62,8 +62,12 @@ namespace MvcMovie.Controllers
             if (!string.IsNullOrEmpty(id))
             {
                 movies = movies.Where(s => s.Genre.Contains(id));
+                return View(await movies.ToListAsync());
             }
-            return View(await movies.ToListAsync());
+            else
+            {
+                return View("Index");
+            }
         }
 
         // GET: Movies/Details/5
@@ -97,7 +101,7 @@ namespace MvcMovie.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Title,ReleaseDate,Genre,Price,ImageURL,TrailerURL")] Movie movie)
+        public async Task<IActionResult> Create([Bind("ID,Title,ReleaseDate,Genre,Price,ImageURL,TrailerURL,Description")] Movie movie)
         {
             if (ModelState.IsValid)
             {
@@ -131,7 +135,7 @@ namespace MvcMovie.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Title,ReleaseDate,Genre,Price,ImageURL,TrailerURL")] Movie movie)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Title,ReleaseDate,Genre,Price,ImageURL,TrailerURL,Description")] Movie movie)
         {
             if (id != movie.ID)
             {

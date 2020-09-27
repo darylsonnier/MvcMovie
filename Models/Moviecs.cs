@@ -18,5 +18,6 @@ namespace MvcMovie.Models
         [Display(Name = "Trailer")]
         public string ImageURL { get; set; }
         public string TrailerURL { get; set; }
+        public string Description { get; set; }
     }
 }

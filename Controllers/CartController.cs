@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using MvcMovie.Helpers;
 using MvcMovie.Models;
 using MvcMovie.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MvcMovie.Controllers
 {
@@ -18,12 +19,26 @@ namespace MvcMovie.Controllers
         {
             _context = context;
         }
+
+        [Authorize]
         public IActionResult Index()
         {
-            var cart = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
-            ViewBag.cart = cart;
-            ViewBag.total = cart.Sum(item => item.Movie.Price * item.Quantity);
-            return View();
+            byte[] value;
+            if (!HttpContext.Session.TryGetValue("cart", out value))
+            {
+                return View("EmptyCart");
+            }
+            else
+            {
+                var cart = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
+                ViewBag.cart = cart;
+                ViewBag.subtotal = cart.Sum(item => item.Movie.Price * item.Quantity);
+                ViewBag.tax = Math.Round(ViewBag.subtotal * (decimal)0.08, 2);
+                ViewBag.total = Math.Round(ViewBag.subtotal + ViewBag.tax, 2);
+                ViewBag.last = cart.Last().Movie.Genre;
+                return View();
+            }
+
         }
 
         public IActionResult Buy(string id)
@@ -62,6 +77,28 @@ namespace MvcMovie.Controllers
             return RedirectToAction("Index");
         }
 
+        public IActionResult Increment(string id)
+        {
+            List<Item> cart = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
+            int index = isExist(id);
+            cart[index].Quantity++;
+            SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Decrement(string id)
+        {
+            List<Item> cart = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
+            int index = isExist(id);
+            cart[index].Quantity--;
+            if (cart[index].Quantity < 1)
+            {
+                cart.RemoveAt(index);
+            }
+            SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
+            return RedirectToAction("Index");
+        }
+
         private int isExist(string id)
         {
             List<Item> cart = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
@@ -74,6 +111,5 @@ namespace MvcMovie.Controllers
             }
             return -1;
         }
-
     }
 }
