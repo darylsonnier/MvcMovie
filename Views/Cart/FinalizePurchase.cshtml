@@ -1,0 +1,162 @@
+﻿@using MvcMovie.Models
+@model PurchaseModel
+@{
+    ViewData["Title"] = "FinalizePurchase";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Finalize Purchase</h1>
+
+<table cellpadding="2" cellspacing="2" border="1" class="table">
+    <tr>
+        <th>Title</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Sub Total</th>
+    </tr>
+    @foreach (var item in ViewBag.cart)
+    {
+        <tr>
+            <td>@item.Movie.Title</td>
+            <td>@item.Movie.Price</td>
+            <td>@item.Quantity</td>
+            <td>@(item.Movie.Price * item.Quantity)</td>
+        </tr>
+    }
+    <tr>
+        <td align="right" colspan="3">Subtotal</td>
+        <td>
+            @ViewBag.subtotal
+        </td>
+    </tr>
+    <tr>
+        <td align="right" colspan="3">Taxes</td>
+        <td>
+            @ViewBag.tax
+        </td>
+    </tr>
+    <tr colspan="4">
+        <td align="right" colspan="3">
+            Discount of $5.00 off your purchases of $50.00 or more!
+        </td>
+        <td>
+            @ViewBag.discount
+        </td>
+    </tr>
+    <tr>
+        <td align="right" colspan="3">Total</td>
+        <td>
+            @ViewBag.total
+        </td>
+    </tr>
+
+</table>
+<form asp-action="Invoice" asp-controller="Cart">
+    <h2>Shipping Address</h2>
+    <table>
+        <tr>
+            <td>
+                <label asp-for="shipName"></label>
+            </td>
+            <td>
+                @Html.TextBox("shipName")
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="shipAdd1"></label>
+            </td>
+            <td>
+                @Html.TextBox("shipAdd1")
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="shipAdd2"></label>
+            </td>
+            <td>
+                @Html.TextBox("shipAdd2")
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <fieldset>
+                    <label asp-for="shipState"></label>
+                </fieldset>
+            </td>
+            <td>
+                @Html.DropDownListFor(m => Model.shipState, new SelectList(Enum.GetValues(typeof(stateList))),"Select State")
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="shipZip"></label>
+            </td>
+            <td>
+                @Html.TextBox("shipZip")
+            </td>
+        </tr>
+        <tr colspan="2">
+            <td>
+                <h2>Billing Address</h2>
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="billName"></label>
+            </td>
+            <td>
+                @Html.TextBox("billName")
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="billAdd1"></label>
+            </td>
+            <td>
+                @Html.TextBox("billAdd1")
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="billAdd2"></label>
+            </td>
+            <td>
+                @Html.TextBox("billAdd2")
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="billState">State</label>
+            </td>
+            <td>
+                @Html.DropDownListFor(m => Model.billState, new SelectList(Enum.GetValues(typeof(stateList))), "Select State")
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="billZip"></label>
+            </td>
+            <td>
+                @Html.TextBox("billZip")
+            </td>
+        </tr>
+        <tr colspan="2">
+            <td>
+                <h3>Credit Card</h3>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="creditcard"></label>
+            </td>
+            <td>
+                @Html.TextBox("creditcard")
+                <!--<input type="number" placeholder="0000-0000-0000-0000" pattern="[0-9]{4}[0-9]{4}[0-9]{4}[0-9]{4}[0-9]{4}[0-9]{4}" required maxlength="16" />-->
+            </td>
+        </tr>
+    </table>
+    <input type="submit" value="Purchase" />
+</form>
+<br>

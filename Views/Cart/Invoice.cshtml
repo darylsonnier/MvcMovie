@@ -1,0 +1,124 @@
+﻿@model MvcMovie.Models.PurchaseModel
+@{
+    ViewData["Title"] = "Invoice";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Invoice - Daryl's Movie Emporium</h1>
+<p>
+    Thank you, @ViewBag.billName, for your business!<br />
+    Come back for all your movie purchasing needs!
+</p>
+
+<table cellpadding="2" cellspacing="2" border="1" class="table">
+    <tr>
+        <th>Title</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Sub Total</th>
+    </tr>
+    @foreach (var item in ViewBag.cart)
+    {
+        <tr>
+            <td>@item.Movie.Title</td>
+            <td>@item.Movie.Price</td>
+            <td>@item.Quantity</td>
+            <td>@(item.Movie.Price * item.Quantity)</td>
+        </tr>
+    }
+    <tr>
+        <td align="right" colspan="3">Subtotal</td>
+        <td>
+            @ViewBag.subtotal
+        </td>
+    </tr>
+    <tr>
+        <td align="right" colspan="3">Taxes</td>
+        <td>
+            @ViewBag.tax
+        </td>
+    </tr>
+    <tr colspan="4">
+        <td align="right" colspan="3">
+            Discount of $5.00 off your purchases of $50.00 or more!
+        </td>
+        <td>
+            @ViewBag.discount
+        </td>
+    </tr>
+    <tr>
+        <td align="right" colspan="3">Total</td>
+        <td>
+            @ViewBag.total
+        </td>
+    </tr>
+
+</table>
+
+<table class="table-bordered" width="100%">
+    <tr>
+        <td>
+            <h3>Billing Address</h3>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @ViewBag.billName
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @ViewBag.billAdd1
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @ViewBag.billAdd2
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @ViewBag.shipState
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @ViewBag.billZip
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <h3>Shipping Address</h3>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @ViewBag.shipName
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @ViewBag.shipAdd1
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @ViewBag.shipAdd2
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @ViewBag.shipState
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @ViewBag.shipZip
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <input type="button" onclick="window.print();return false;" value="Print" name="Print" class="btn-primary" />
+        </td>
+    </tr>
+</table>

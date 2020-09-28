@@ -1,0 +1,14 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    if (UserManager.GetUserName(User) == "sonnierd3916@uhcl.edu")
+    {
+        <li class="nav-item">
+            <a class="nav-link text-light" asp-controller="Movies" asp-action="AdminIndex">Admin</a>
+        </li>
+    }
+}

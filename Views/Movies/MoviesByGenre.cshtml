@@ -58,7 +58,7 @@
                         @Html.DisplayFor(modelItem => item.Price)
                     </td>
                     <td>
-                        <button id=@HelperClass.Combine(Html.DisplayTextFor(modelItem => item.Title), string.Empty) class="btn-primary" onclick="displayModal(this.id)">Description</button>
+                        <button id=@HelperClass.Combine(Html.DisplayTextFor(modelItem => item.Title), string.Empty) title="Movie Description" class="btn-primary" onclick="displayModal(this.id)">Description</button>
                         
                         <div id=@HelperClass.Combine(Html.DisplayTextFor(modelItem => item.Title), "_modal") class="modal">
                             <div class="modal-content">
@@ -68,7 +68,8 @@
                         </div>
                     </td>
                     <td>
-                        <a asp-controller="Cart" asp-action="buy" asp-route-id="@item.Title">Add to cart</a>
+                        <!--<a asp-controller="Cart" asp-action="buy" asp-route-id="@item.Title">Add to cart</a>-->
+                        <input type="button" class="btn-primary" title="Add to Cart" value="Add to Cart" onclick="location.href='@Url.Action("buy", "cart", new { id = item.Title })'" />
                     </td>
                     <td>
                     </td>
