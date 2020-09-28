@@ -129,7 +129,9 @@ img.thumbnail {
     cursor: pointer;
 }
 
-.no-print media="print" 
+@media print
 {
-    display: none;
+    .no-print, .no-print * {
+        display: none !important;
+    }
 }
