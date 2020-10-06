@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using MvcMovie.Models;
 
@@ -20,17 +21,20 @@ namespace MvcMovie.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.totalItems = HttpContext.Session.GetInt32("totalItems");
             return View();
         }
 
         public IActionResult Privacy()
         {
+            ViewBag.totalItems = HttpContext.Session.GetInt32("totalItems");
             return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
+            ViewBag.totalItems = HttpContext.Session.GetInt32("totalItems");
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }

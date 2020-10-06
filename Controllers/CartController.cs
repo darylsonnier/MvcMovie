@@ -27,6 +27,7 @@ namespace MvcMovie.Controllers
         {
             if (!HttpContext.Session.TryGetValue("cart", out byte[] value))
             {
+                ViewBag.totalItems = 0;
                 return View("EmptyCart");
             }
             else
@@ -38,14 +39,7 @@ namespace MvcMovie.Controllers
                 ViewBag.discount = ViewBag.subtotal / (decimal)50 >= (decimal)1.0 ? (decimal)5.00 * Math.Truncate(ViewBag.subtotal / (decimal)50) : (decimal)0.0;
                 ViewBag.shipping = ViewBag.subtotal > (decimal)50.0 ? (decimal)0.00 : (decimal)4.99;
                 ViewBag.total = Math.Round(ViewBag.subtotal + ViewBag.tax + ViewBag.shipping - ViewBag.discount, 2);
-                try
-                {
-                    ViewBag.last = cart.Last().Movie.Genre.ToString().Split(",").First();
-                }
-                catch
-                {
-                    ViewBag.last = string.Empty;
-                }
+                ViewBag.totalItems = HttpContext.Session.GetInt32("totalItems");
                 return View();
             }
 
@@ -60,11 +54,13 @@ namespace MvcMovie.Controllers
             ViewBag.discount = ViewBag.subtotal / (decimal)50 >= (decimal)1.0 ? (decimal)5.00 * Math.Truncate(ViewBag.subtotal / (decimal)50) : (decimal)0.0;
             ViewBag.shipping = ViewBag.subtotal > (decimal)50.0 ? (decimal)0.00 : (decimal)4.99;
             ViewBag.total = Math.Round(ViewBag.subtotal + ViewBag.tax + ViewBag.shipping - ViewBag.discount, 2);
+            ViewBag.totalItems = HttpContext.Session.GetInt32("totalItems");
             return View();
         }
 
         public ActionResult Invoice(PurchaseModel model)
         {
+            ViewBag.totalItems = HttpContext.Session.GetInt32("totalItems");
             var cart = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
 
             if (model.billName == null) ViewBag.billName = model.shipName;
@@ -90,10 +86,11 @@ namespace MvcMovie.Controllers
             ViewBag.shipping = ViewBag.subtotal > (decimal)50.0 ? (decimal)0.00 : (decimal)4.99;
             ViewBag.total = Math.Round(ViewBag.subtotal + ViewBag.tax + ViewBag.shipping - ViewBag.discount, 2);
             HttpContext.Session.Clear();
+            HttpContext.Session.SetInt32("totalItems", 0);
             return View();
         }
 
-        public IActionResult Buy(string id)
+        public IActionResult Buy(string id, string goBack)
         {
             var Movies = from m in _context.Movie select m;
             Movie Movie = new Movie();
@@ -102,6 +99,7 @@ namespace MvcMovie.Controllers
                 var cart = new List<Item>();
                 cart.Add(new Item { Movie = Movies.Where(x => x.Title == id).FirstOrDefault(), Quantity = 1 });
                 SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
+                HttpContext.Session.SetInt32("totalItems", cart.Select(x => x.Quantity).ToList().Sum());
             }
             else
             {
@@ -115,9 +113,14 @@ namespace MvcMovie.Controllers
                 {
                     cart.Add(new Item { Movie = Movies.Where(x => x.Title == id).FirstOrDefault(), Quantity = 1 });
                 }
+                HttpContext.Session.SetInt32("totalItems", cart.Select(x => x.Quantity).ToList().Sum());
                 SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
             }
-            return RedirectToAction("Index");
+
+            // Redirecting back to page, so add to cart doesn't automatically go to the shopping cart.  Need to hit the cart button in the menu bar to access the cart.
+            //return RedirectToAction("Index");
+            ViewBag.totalItems = HttpContext.Session.GetInt32("totalItems");
+            return RedirectToAction("MoviesByGenre", "Movies", new { @id = goBack });
         }
 
         public IActionResult Remove(string id)
@@ -126,6 +129,8 @@ namespace MvcMovie.Controllers
             int index = isExist(id);
             cart.RemoveAt(index);
             SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
+            HttpContext.Session.SetInt32("totalItems", cart.Select(x => x.Quantity).ToList().Sum());
+            ViewBag.totalItems = HttpContext.Session.GetInt32("totalItems");
             return RedirectToAction("Index");
         }
 
@@ -135,6 +140,8 @@ namespace MvcMovie.Controllers
             int index = isExist(id);
             cart[index].Quantity++;
             SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
+            HttpContext.Session.SetInt32("totalItems", cart.Select(x => x.Quantity).ToList().Sum());
+            ViewBag.totalItems = HttpContext.Session.GetInt32("totalItems");
             return RedirectToAction("Index");
         }
 
@@ -148,6 +155,8 @@ namespace MvcMovie.Controllers
                 cart.RemoveAt(index);
             }
             SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
+            HttpContext.Session.SetInt32("totalItems", cart.Select(x => x.Quantity).ToList().Sum());
+            ViewBag.totalItems = HttpContext.Session.GetInt32("totalItems");
             return RedirectToAction("Index");
         }
 

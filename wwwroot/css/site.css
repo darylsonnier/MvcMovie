@@ -61,16 +61,30 @@ html {
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
-    
-    background-image: linear-gradient(gray, lightblue);
+    background-image: linear-gradient(rgb(64,64,64), lightblue);
 }
 
 .footer {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
+  background-color: lightgray;
+}
+
+.stay-still {
+    position: fixed;
+    width: 100%;
+    margin-bottom: 1px;
+    z-index: 2;
+}
+
+.movable {
+    top: 65px;
+    margin-bottom: 55px;
+    position: relative;
+    z-index: 0;
 }
 
 img.resize {
@@ -138,13 +152,20 @@ img.thumbnail {
 }
 
 .privacy {
-    background-image: url("../img/online-privacy-clipart.png"), linear-gradient(to bottom, rgb(128, 128, 128), rgb(245,245,245));
+    background-image: linear-gradient(to bottom, rgb(128, 128, 128), rgb(245,245,245));
     background-repeat: no-repeat;
     background-position: center;
+    background-position-y: bottom;
+    margin-bottom: 0px;
+    margin-top: 0px;
 }
 
 .home {
-    background-image: url("../img/NightAtTheMovies.png"), linear-gradient(to bottom, rgb(128, 128, 128), rgb(245,245,245));
-    background-repeat: no-repeat;
-    background-position: center;
+    background-image: url('../img/flames.gif');
+    background-color: rgb(0,0,0);
+    background-repeat: repeat-x;
+    background-position-x: center;
+    background-position-y: bottom;
+    margin-bottom: 55px;
+    color: orangered;
 }
