@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Invoice - Daryl's Movie Emporium</h1>
+<h1>Invoice - Daryl's Movie MvcMovie</h1>
 <p>
     Thank you, @ViewBag.billName, for your business!<br />
     Come back for all your movie purchasing needs!
@@ -19,13 +19,12 @@
     </tr>
     @foreach (var item in ViewBag.cart)
     {
-        <tr>
-            <td>@item.Movie.Title</td>
-            <td>@item.Movie.Price</td>
-            <td>@item.Quantity</td>
-            <td>@(item.Movie.Price * item.Quantity)</td>
-        </tr>
-    }
+<tr>
+    <td>@item.Movie.Title</td>
+    <td>@item.Movie.Price</td>
+    <td>@item.Quantity</td>
+    <td>@(item.Movie.Price * item.Quantity)</td>
+</tr>}
     <tr>
         <td align="right" colspan="3">Subtotal</td>
         <td>
@@ -40,10 +39,16 @@
     </tr>
     <tr colspan="4">
         <td align="right" colspan="3">
-            Discount of $5.00 off your purchases of $50.00 or more!
+            Discount of $5.00 off your purchases for every $50.00 you spend!
         </td>
         <td>
             @ViewBag.discount
+        </td>
+    </tr>
+    <tr>
+        <td align="right" colspan="3">Shipping</td>
+        <td>
+            @ViewBag.shipping
         </td>
     </tr>
     <tr>

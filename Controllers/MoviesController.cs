@@ -12,6 +12,7 @@ using MvcMovie.Models;
 
 namespace MvcMovie.Controllers
 {
+    [Authorize]
     public class MoviesController : Controller
     {
         private readonly MvcMovieContext _context;
@@ -30,7 +31,6 @@ namespace MvcMovie.Controllers
         }
 
         // GET: Movies
-        [Authorize]
         public async Task<IActionResult> AdminIndex(string criteria, string searchString)
         {
             var movies = from m in _context.Movie
@@ -55,10 +55,10 @@ namespace MvcMovie.Controllers
         }
 
         // GET: Movies by Genre for Users
-        [Authorize]
         public async Task<IActionResult> MoviesByGenre(string id)
         {
             var movies = from m in _context.Movie select m;
+            ViewBag.genre = id;
             if (!string.IsNullOrEmpty(id))
             {
                 movies = movies.Where(s => s.Genre.Contains(id));
@@ -71,7 +71,6 @@ namespace MvcMovie.Controllers
         }
 
         // GET: Movies/Details/5
-        [Authorize]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -90,7 +89,6 @@ namespace MvcMovie.Controllers
         }
 
         // GET: Movies/Create
-        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -113,7 +111,6 @@ namespace MvcMovie.Controllers
         }
 
         // GET: Movies/Edit/5
-        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -134,7 +131,6 @@ namespace MvcMovie.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
         public async Task<IActionResult> Edit(int id, [Bind("ID,Title,ReleaseDate,Genre,Price,ImageURL,TrailerURL,Description")] Movie movie)
         {
             if (id != movie.ID)
@@ -166,7 +162,6 @@ namespace MvcMovie.Controllers
         }
 
         // GET: Movies/Delete/5
-        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

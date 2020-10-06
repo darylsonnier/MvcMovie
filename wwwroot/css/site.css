@@ -129,9 +129,22 @@ img.thumbnail {
     cursor: pointer;
 }
 
+/* Don't print the print button on the invoice*/
 @media print
 {
     .no-print, .no-print * {
         display: none !important;
     }
+}
+
+.privacy {
+    background-image: url("../img/online-privacy-clipart.png"), linear-gradient(to bottom, rgb(128, 128, 128), rgb(245,245,245));
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.home {
+    background-image: url("../img/NightAtTheMovies.png"), linear-gradient(to bottom, rgb(128, 128, 128), rgb(245,245,245));
+    background-repeat: no-repeat;
+    background-position: center;
 }

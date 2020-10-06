@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace MvcMovie.Controllers
 {
+    [Authorize]
     public class CartController : Controller
     {
         private readonly MvcMovieContext _context;
@@ -21,11 +22,10 @@ namespace MvcMovie.Controllers
             _context = context;
         }
 
-        [Authorize]
+        
         public IActionResult Index()
         {
-            byte[] value;
-            if (!HttpContext.Session.TryGetValue("cart", out value))
+            if (!HttpContext.Session.TryGetValue("cart", out byte[] value))
             {
                 return View("EmptyCart");
             }
@@ -35,11 +35,12 @@ namespace MvcMovie.Controllers
                 ViewBag.cart = cart;
                 ViewBag.subtotal = cart.Sum(item => item.Movie.Price * item.Quantity);
                 ViewBag.tax = Math.Round(ViewBag.subtotal * (decimal)0.08, 2);
-                ViewBag.discount = ViewBag.subtotal > (decimal)50.0 ? (decimal)5.00 : (decimal)0.0;
-                ViewBag.total = Math.Round(ViewBag.subtotal + ViewBag.tax, 2) - ViewBag.discount;
+                ViewBag.discount = ViewBag.subtotal / (decimal)50 >= (decimal)1.0 ? (decimal)5.00 * Math.Truncate(ViewBag.subtotal / (decimal)50) : (decimal)0.0;
+                ViewBag.shipping = ViewBag.subtotal > (decimal)50.0 ? (decimal)0.00 : (decimal)4.99;
+                ViewBag.total = Math.Round(ViewBag.subtotal + ViewBag.tax + ViewBag.shipping - ViewBag.discount, 2);
                 try
                 {
-                    ViewBag.last = cart.Last().Movie.Genre;
+                    ViewBag.last = cart.Last().Movie.Genre.ToString().Split(",").First();
                 }
                 catch
                 {
@@ -56,19 +57,27 @@ namespace MvcMovie.Controllers
             ViewBag.cart = cart;
             ViewBag.subtotal = cart.Sum(item => item.Movie.Price * item.Quantity);
             ViewBag.tax = Math.Round(ViewBag.subtotal * (decimal)0.08, 2);
-            ViewBag.discount = ViewBag.subtotal > (decimal)50.0 ? (decimal)5.00 : (decimal)0.0;
-            ViewBag.total = Math.Round(ViewBag.subtotal + ViewBag.tax, 2) - ViewBag.discount;
+            ViewBag.discount = ViewBag.subtotal / (decimal)50 >= (decimal)1.0 ? (decimal)5.00 * Math.Truncate(ViewBag.subtotal / (decimal)50) : (decimal)0.0;
+            ViewBag.shipping = ViewBag.subtotal > (decimal)50.0 ? (decimal)0.00 : (decimal)4.99;
+            ViewBag.total = Math.Round(ViewBag.subtotal + ViewBag.tax + ViewBag.shipping - ViewBag.discount, 2);
             return View();
         }
 
         public ActionResult Invoice(PurchaseModel model)
         {
             var cart = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
-            ViewBag.billName = model.billName;
-            ViewBag.billAdd1 = model.billAdd1;
-            ViewBag.billAdd2 = model.billAdd2;
-            ViewBag.billState = model.billState;
-            ViewBag.billZip = model.billZip;
+
+            if (model.billName == null) ViewBag.billName = model.shipName;
+            else ViewBag.billName = model.billName;
+            if (model.billAdd1 == null) ViewBag.billAdd1 = model.shipAdd1;
+            else ViewBag.billAdd1 = model.billAdd1;
+            if (model.billAdd2 == null) ViewBag.billAdd2 = model.shipAdd2;
+            else ViewBag.billAdd2 = model.billAdd2;
+            if (model.billState.ToString() == string.Empty) ViewBag.billState = model.shipState;
+            else ViewBag.billState = model.billState;
+            if (model.billZip == null) ViewBag.billZip = model.shipZip;
+            else ViewBag.billZip = model.billZip;
+            
             ViewBag.shipName = model.shipName;
             ViewBag.shipAdd1 = model.shipAdd1;
             ViewBag.shipAdd2 = model.shipAdd2;
@@ -76,9 +85,10 @@ namespace MvcMovie.Controllers
             ViewBag.shipZip = model.shipZip;
             ViewBag.cart = cart;
             ViewBag.subtotal = cart.Sum(item => item.Movie.Price * item.Quantity);
-            ViewBag.discount = ViewBag.subtotal > (decimal)50.0 ? (decimal)5.00 : (decimal)0.0;
             ViewBag.tax = Math.Round(ViewBag.subtotal * (decimal)0.08, 2);
-            ViewBag.total = Math.Round(ViewBag.subtotal + ViewBag.tax - ViewBag.discount, 2);
+            ViewBag.discount = ViewBag.subtotal / (decimal)50 >= (decimal)1.0 ? (decimal)5.00 * Math.Truncate(ViewBag.subtotal / (decimal)50) : (decimal)0.0;
+            ViewBag.shipping = ViewBag.subtotal > (decimal)50.0 ? (decimal)0.00 : (decimal)4.99;
+            ViewBag.total = Math.Round(ViewBag.subtotal + ViewBag.tax + ViewBag.shipping - ViewBag.discount, 2);
             HttpContext.Session.Clear();
             return View();
         }
@@ -89,7 +99,7 @@ namespace MvcMovie.Controllers
             Movie Movie = new Movie();
             if (SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart") == null)
             {
-                List<Item> cart = new List<Item>();
+                var cart = new List<Item>();
                 cart.Add(new Item { Movie = Movies.Where(x => x.Title == id).FirstOrDefault(), Quantity = 1 });
                 SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
             }

@@ -11,19 +11,19 @@ namespace MvcMovie.Models
 {
     public class PurchaseModel
     {
-        [Required]
         [DisplayName("Name")]
-        public string shipName { get; set; }
         [Required]
+        public string shipName { get; set; }
         [DisplayName("Address 1")]
+        [Required]
         public string shipAdd1 { get; set; }
         [DisplayName("Address 2")]
         public string shipAdd2 { get; set; }
-        [Required]
         [DisplayName("State")]
-        public stateList shipState { get; set; }
         [Required]
+        public stateList shipState { get; set; }
         [DisplayName("Zip Code")]
+        [Required]
         public string shipZip { get; set; }
 
         [Required]
@@ -42,6 +42,7 @@ namespace MvcMovie.Models
         [DisplayName("Zip Code")]
         public string billZip { get; set; }
         [Required]
+        [CreditCard]
         [DisplayName("Credit Card")]
         public int creditcard { get; set; }
 

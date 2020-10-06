@@ -19,35 +19,34 @@
     </tr>
     @foreach (var item in ViewBag.cart)
     {
-        <tr>
-            <td><a asp-controller="cart" asp-action="remove" asp-route-id="@item.Movie.Title">Remove All</a></td>
-            <td>@item.Movie.Title</td>
-            <td><img src=@item.Movie.ImageURL width="60" /></td>
-            <td>@item.Movie.Price</td>
-            <td>@item.Quantity</td>
-            <td>@(item.Movie.Price * item.Quantity)</td>
-            <td>
-                <table class="table-borderless">
-                    <tr>
-                        <td>
-                            <!--<a asp-controller="cart" asp-action="increment" asp-route-id="@item.Movie.Title">Add</a>-->
-                            <a href="@Url.Action("increment", "cart", new { id = item.Movie.Title })" title="Add One">
-                                <img src="~/img/plus.png" height="20" width="20" />
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <!--<a asp-controller="cart" asp-action="decrement" asp-route-id="@item.Movie.Title">Subtract</a>-->
-                            <a href="@Url.Action("decrement", "cart", new { id = item.Movie.Title })" title="Remove One">
-                                <img src="~/img/minus.png" height="20" width="20"/>
-                            </a>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    }
+<tr>
+    <td><a asp-controller="cart" asp-action="remove" asp-route-id="@item.Movie.Title">Remove All</a></td>
+    <td>@item.Movie.Title</td>
+    <td><img src=@item.Movie.ImageURL width="60" /></td>
+    <td>@item.Movie.Price</td>
+    <td>@item.Quantity</td>
+    <td>@(item.Movie.Price * item.Quantity)</td>
+    <td>
+        <table class="table-borderless">
+            <tr>
+                <td>
+                    <!--<a asp-controller="cart" asp-action="increment" asp-route-id="@item.Movie.Title">Add</a>-->
+                    <a href="@Url.Action("increment", "cart", new { id = item.Movie.Title })" title="Add One">
+                        <img src="~/img/plus.png" height="20" width="20" />
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <!--<a asp-controller="cart" asp-action="decrement" asp-route-id="@item.Movie.Title">Subtract</a>-->
+                    <a href="@Url.Action("decrement", "cart", new { id = item.Movie.Title })" title="Remove One">
+                        <img src="~/img/minus.png" height="20" width="20" />
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>}
     <tr>
         <td align="right" colspan="6">Subtotal</td>
         <td>
@@ -62,10 +61,16 @@
     </tr>
     <tr colspan="7">
         <td align="right" colspan="6">
-            Discount of $5.00 off your purchases of $50.00 or more!
+            Discount of $5.00 off your purchases for every $50.00 you spend!
         </td>
         <td>
             @ViewBag.discount
+        </td>
+    </tr>
+    <tr>
+        <td align="right" colspan="6">Shipping</td>
+        <td>
+            @ViewBag.shipping
         </td>
     </tr>
     <tr>
@@ -80,7 +85,8 @@
 <table width="100%" class="table-borderless">
     <tr>
         <td>
-            <a asp-controller="movies" asp-action="MoviesByGenre" asp-route-id="@ViewBag.last">Continue Shopping</a>
+            <!--<a asp-controller="movies" asp-action="MoviesByGenre" asp-route-id="@ViewBag.last">Continue Shopping</a>-->
+            <a href="##" onClick="history.go(-1); return false;">Continue Shopping</a>
         </td>
         <td>
             <a asp-controller="cart" asp-action="FinalizePurchase">Purchase Now</a>

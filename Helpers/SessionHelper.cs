@@ -7,6 +7,9 @@ using Newtonsoft.Json;
 
 namespace MvcMovie.Helpers
 {
+    /* Class used to serialize and deserialize data into json strings.
+     * Sourced from http://learningprogramming.net/net/asp-net-core-mvc/build-shopping-cart-with-session-in-asp-net-core-mvc/
+     */
     public static class SessionHelper
     {
         public static void SetObjectAsJson(this ISession session, string key, object value)
