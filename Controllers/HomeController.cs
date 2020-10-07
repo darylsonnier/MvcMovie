@@ -21,20 +21,20 @@ namespace MvcMovie.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.totalItems = HttpContext.Session.GetInt32("totalItems");
+            ViewBag.totalItems = HttpContext.Session.GetInt32("totalItems") != null ? HttpContext.Session.GetInt32("totalItems") : 0;  // Total number of items in cart
             return View();
         }
 
         public IActionResult Privacy()
         {
-            ViewBag.totalItems = HttpContext.Session.GetInt32("totalItems");
+            ViewBag.totalItems = HttpContext.Session.GetInt32("totalItems") != null ? HttpContext.Session.GetInt32("totalItems") : 0;
             return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            ViewBag.totalItems = HttpContext.Session.GetInt32("totalItems");
+            ViewBag.totalItems = HttpContext.Session.GetInt32("totalItems") != null ? HttpContext.Session.GetInt32("totalItems") : 0;
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }

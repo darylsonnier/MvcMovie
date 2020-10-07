@@ -73,6 +73,8 @@ namespace MvcMovie.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
+            HttpContext.Session.Clear();
+
             returnUrl = returnUrl ?? Url.Content("~/");
 
             if (ModelState.IsValid)

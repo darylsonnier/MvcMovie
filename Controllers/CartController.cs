@@ -33,7 +33,7 @@ namespace MvcMovie.Controllers
             else
             {
                 var cart = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
-                ViewBag.cart = cart;
+                ViewBag.cart = cart.OrderBy(x => x.Movie.Title);
                 ViewBag.subtotal = cart.Sum(item => item.Movie.Price * item.Quantity);
                 ViewBag.tax = Math.Round(ViewBag.subtotal * (decimal)0.08, 2);
                 ViewBag.discount = ViewBag.subtotal / (decimal)50 >= (decimal)1.0 ? (decimal)5.00 * Math.Truncate(ViewBag.subtotal / (decimal)50) : (decimal)0.0;
@@ -79,7 +79,7 @@ namespace MvcMovie.Controllers
             ViewBag.shipAdd2 = model.shipAdd2;
             ViewBag.shipState = model.shipState;
             ViewBag.shipZip = model.shipZip;
-            ViewBag.cart = cart;
+            ViewBag.cart = cart.OrderBy(x => x.Movie.Title);
             ViewBag.subtotal = cart.Sum(item => item.Movie.Price * item.Quantity);
             ViewBag.tax = Math.Round(ViewBag.subtotal * (decimal)0.08, 2);
             ViewBag.discount = ViewBag.subtotal / (decimal)50 >= (decimal)1.0 ? (decimal)5.00 * Math.Truncate(ViewBag.subtotal / (decimal)50) : (decimal)0.0;

@@ -27,7 +27,7 @@ namespace MvcMovie.Controllers
         public async Task<IActionResult> Index()
         {
             var movies = from m in _context.Movie select m;
-            ViewBag.totalItems = HttpContext.Session.GetInt32("totalItems");
+            ViewBag.totalItems = HttpContext.Session.GetInt32("totalItems") != null ? HttpContext.Session.GetInt32("totalItems") : 0;
             return View(await movies.ToListAsync());
         }
 
@@ -52,7 +52,7 @@ namespace MvcMovie.Controllers
                 }
             }
 
-            ViewBag.totalItems = HttpContext.Session.GetInt32("totalItems");
+            ViewBag.totalItems = HttpContext.Session.GetInt32("totalItems") != null ? HttpContext.Session.GetInt32("totalItems") : 0;
             return View(await movies.ToListAsync());
         }
 
@@ -61,7 +61,7 @@ namespace MvcMovie.Controllers
         {
             var movies = from m in _context.Movie select m;
             ViewBag.genre = id;
-            ViewBag.totalItems = HttpContext.Session.GetInt32("totalItems");
+            ViewBag.totalItems = HttpContext.Session.GetInt32("totalItems") != null ? HttpContext.Session.GetInt32("totalItems") : 0;
             if (!string.IsNullOrEmpty(id))
             {
                 movies = movies.Where(s => s.Genre.Contains(id));
@@ -87,14 +87,14 @@ namespace MvcMovie.Controllers
             {
                 return NotFound();
             }
-            ViewBag.totalItems = HttpContext.Session.GetInt32("totalItems");
+            ViewBag.totalItems = HttpContext.Session.GetInt32("totalItems") != null ? HttpContext.Session.GetInt32("totalItems") : 0;
             return View(movie);
         }
 
         // GET: Movies/Create
         public IActionResult Create()
         {
-            ViewBag.totalItems = HttpContext.Session.GetInt32("totalItems");
+            ViewBag.totalItems = HttpContext.Session.GetInt32("totalItems") != null ? HttpContext.Session.GetInt32("totalItems") : 0;
             return View();
         }
 
@@ -105,7 +105,7 @@ namespace MvcMovie.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,Title,ReleaseDate,Genre,Price,ImageURL,TrailerURL,Description")] Movie movie)
         {
-            ViewBag.totalItems = HttpContext.Session.GetInt32("totalItems");
+            ViewBag.totalItems = HttpContext.Session.GetInt32("totalItems") != null ? HttpContext.Session.GetInt32("totalItems") : 0;
             if (ModelState.IsValid)
             {
                 _context.Add(movie);
@@ -118,7 +118,7 @@ namespace MvcMovie.Controllers
         // GET: Movies/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            ViewBag.totalItems = HttpContext.Session.GetInt32("totalItems");
+            ViewBag.totalItems = HttpContext.Session.GetInt32("totalItems") != null ? HttpContext.Session.GetInt32("totalItems") : 0;
             if (id == null)
             {
                 return NotFound();
@@ -139,7 +139,7 @@ namespace MvcMovie.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ID,Title,ReleaseDate,Genre,Price,ImageURL,TrailerURL,Description")] Movie movie)
         {
-            ViewBag.totalItems = HttpContext.Session.GetInt32("totalItems");
+            ViewBag.totalItems = HttpContext.Session.GetInt32("totalItems") != null ? HttpContext.Session.GetInt32("totalItems") : 0;
             if (id != movie.ID)
             {
                 return NotFound();
@@ -171,7 +171,7 @@ namespace MvcMovie.Controllers
         // GET: Movies/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            ViewBag.totalItems = HttpContext.Session.GetInt32("totalItems");
+            ViewBag.totalItems = HttpContext.Session.GetInt32("totalItems") != null ? HttpContext.Session.GetInt32("totalItems") : 0;
             if (id == null)
             {
                 return NotFound();
@@ -192,7 +192,7 @@ namespace MvcMovie.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            ViewBag.totalItems = HttpContext.Session.GetInt32("totalItems");
+            ViewBag.totalItems = HttpContext.Session.GetInt32("totalItems") != null ? HttpContext.Session.GetInt32("totalItems") : 0;
             var movie = await _context.Movie.FindAsync(id);
             _context.Movie.Remove(movie);
             await _context.SaveChangesAsync();
