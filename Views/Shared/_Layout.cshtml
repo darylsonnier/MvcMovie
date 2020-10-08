@@ -26,14 +26,13 @@
                     </ul>
                 </div>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <!--<a asp-controller="Cart" asp-action="Index" class="nav-link text-white">Shopping Cart</a>-->
                     <span>
                         <a href="@Url.Action("Index", "Cart")" title="Shopping Cart">
                             <img src="~/img/cart.jpg" width="30" height="30" />
                         </a>
                     </span>
                     <span id="totalItems" style="color: white">
-                        Items in cart: @ViewBag.totalItems &nbsp;
+                        Items in cart: @ViewData["totalItems"] &nbsp &nbsp;
                     </span>
                 </div>
             </div>

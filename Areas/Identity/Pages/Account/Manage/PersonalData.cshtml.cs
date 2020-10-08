@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
@@ -21,6 +22,7 @@ namespace MvcMovie.Areas.Identity.Pages.Account.Manage
 
         public async Task<IActionResult> OnGet()
         {
+            ViewData["totalItems"] = HttpContext.Session.GetInt32("totalItems") != null ? HttpContext.Session.GetInt32("totalItems") : 0;
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
