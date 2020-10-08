@@ -2,13 +2,13 @@
 @using MvcMovie.Helpers;
 
 @{
-    ViewData["Title"] = "Daryl's Movie MvcMovie";
+    ViewData["Title"] = "Daryl's Movie Emporium";
 }
 
-<h1>@ViewBag.genre</h1>
+<h1 style="text-align: right">@ViewBag.genre</h1>
 
-<body>
-    <table class="table">
+<body class="sales">
+    <table class="table sales">
         <thead>
             <tr>
                 <th>
@@ -69,6 +69,7 @@
             }
         </tbody>
     </table>
+
     <!-- Jquery -->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 

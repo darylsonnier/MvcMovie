@@ -61,7 +61,7 @@ html {
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
-    background-image: linear-gradient(rgb(64,64,64), lightblue);
+    background-image: linear-gradient(rgb(128, 128, 128), lightblue);
 }
 
 .footer {
@@ -152,7 +152,7 @@ img.thumbnail {
 }
 
 .privacy {
-    background-image: linear-gradient(to bottom, rgb(128, 128, 128), rgb(245,245,245));
+    background-image: linear-gradient(to bottom, rgb(164, 164, 164), rgb(245, 245, 245));
     background-repeat: no-repeat;
     background-position: center;
     background-position-y: bottom;
@@ -162,10 +162,19 @@ img.thumbnail {
 
 .home {
     background-image: url('../img/flames.gif');
-    background-color: rgb(0,0,0);
+    background-color: rgb(0, 0, 0);
     background-repeat: repeat-x;
     background-position-x: center;
     background-position-y: bottom;
     margin-bottom: 55px;
     color: orangered;
+}
+
+.sales {
+    background-color: rgb(0, 0, 0);
+    color: orangered;
+}
+
+.center {
+    text-align: center;
 }

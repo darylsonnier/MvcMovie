@@ -5,9 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Shopping Cart</h1>
+<h1 style="text-align: right">Shopping Cart</h1>
 
-<table cellpadding="2" cellspacing="2" border="1" class="table">
+<table cellpadding="2" cellspacing="2" border="1" class="table mList sales">
     <tr>
         <th>Option</th>
         <th>Title</th>
@@ -20,7 +20,7 @@
     @foreach (var item in ViewBag.cart)
     {
         <tr>
-            <td style="vertical-align: middle"><a asp-controller="cart" asp-action="remove" asp-route-id="@item.Movie.Title">Remove All</a></td>
+            <td style="vertical-align: middle"><a asp-controller="cart" asp-action="remove" asp-route-id="@item.Movie.Title" class="btn-danger btn-block center">Remove All</a></td>
             <td style="vertical-align: middle">@item.Movie.Title</td>
             <td style="margin: auto"><img src=@item.Movie.ImageURL width="60" /></td>
             <td style="vertical-align: middle">@item.Movie.Price</td>
@@ -86,11 +86,10 @@
 <table width="100%" class="table-borderless">
     <tr>
         <td>
-            <a asp-controller="movies" asp-action="MoviesByGenre" asp-route-id="@ViewBag.last">Continue Shopping</a>
-            <!--<a href="##" onClick="history.go(-1); return false;">Continue Shopping</a>-->
+            <a asp-controller="movies" asp-action="MoviesByGenre" asp-route-id="@ViewBag.last" class="btn-info btn-lg">Continue Shopping</a>
         </td>
         <td>
-            <a asp-controller="cart" asp-action="FinalizePurchase">Purchase Now</a>
+            <a asp-controller="cart" asp-action="FinalizePurchase" class="btn-success btn-lg">Purchase Now</a>
         </td>
     </tr>
 </table>
