@@ -69,7 +69,7 @@
                 <label asp-for="billName"></label>
             </td>
             <td>
-                @Html.TextBoxFor(m => m.billName, new { placeholder = "John Doe", @class = "form-control" })
+                @Html.TextBoxFor(m => m.billName, new { id = "name", placeholder = "John Doe", @class = "form-control" })
             </td>
         </tr>
         <tr>
@@ -77,7 +77,7 @@
                 <label asp-for="billAdd1"></label>
             </td>
             <td>
-                @Html.TextBoxFor(m => m.billAdd1, new { placeholder = "123 Easy Street", @class = "form-control" })
+                @Html.TextBoxFor(m => m.billAdd1, new { id = "add", placeholder = "123 Easy Street", @class = "form-control" })
             </td>
         </tr>
         <tr>
@@ -93,7 +93,7 @@
                 <label asp-for="billState">State</label>
             </td>
             <td>
-                @Html.DropDownListFor(m => Model.billState, Html.GetEnumSelectList<stateList>(), "Select State", new { @class = "form-control" })
+                @Html.DropDownListFor(m => Model.billState, Html.GetEnumSelectList<stateList>(), "Select State", new { id = "state", @class = "form-control" })
             </td>
         </tr>
         <tr>
@@ -101,7 +101,7 @@
                 <label asp-for="billZip"></label>
             </td>
             <td>
-                @Html.TextBoxFor(m => m.billZip, new { placeholder = "00000", @class = "form-control" })
+                @Html.TextBoxFor(m => m.billZip, new { id = "zip", placeholder = "00000", @class = "form-control" })
             </td>
         </tr>
     </table>
@@ -168,13 +168,13 @@
                 <label asp-for="card"></label>
             </td>
             <td width="20%">
-                @Html.TextBoxFor(m => m.card, new { placeholder = "0000 0000 0000 0000", @class = "form-control" })
+                @Html.TextBoxFor(m => m.card, new { id = "card",  placeholder = "0000 0000 0000 0000", @class = "form-control", @maxlength = "16", @minlength = "14" })
             </td>
             <td width="20%" align="right">
                 <label asp-for="cvv"></label>
             </td>
             <td width="20%">
-                @Html.TextBoxFor(m => m.cvv, new { placeholder = "000", @class = "form-control" })
+                @Html.TextBoxFor(m => m.cvv, new { id = "cvv", placeholder = "000", @class = "form-control" })
             </td>
             <td width="20%">
             </td>
@@ -184,13 +184,13 @@
                 <label asp-for="month"></label>
             </td>
             <td width="20%">
-                @Html.DropDownListFor(m => Model.month, Html.GetEnumSelectList<monthList>(), "Select Month", new { @class = "form-control" })
+                @Html.DropDownListFor(m => Model.month, Html.GetEnumSelectList<monthList>(), "Select Month", new { id = "month", @class = "form-control" })
             </td>
             <td width="20%" align="right">
                 <label asp-for="year"></label>
             </td>
             <td width="20%">
-                @Html.DropDownListFor(m => Model.year, Html.GetEnumSelectList<yearList>(), "Select Year", new { @class = "form-control" })
+                @Html.DropDownListFor(m => Model.year, Html.GetEnumSelectList<yearList>(), "Select Year", new { id = "year", @class = "form-control" })
             </td>
             <td width="20%">
             </td>
@@ -202,30 +202,18 @@
 @section Scripts {
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
     <script type="text/javascript">
-        /*$(function () {
-            // Silly example to demonstrate.
-            $('purchaseForm').validate().form();
-
-            if ($('purchaseForm').valid() === false) {
-                console.log("invalid");
-            } else {
-                console.log("valid!");
-            }
-
-        });*/
-
         $(document).ready(function () {
             var checkformValidation = function () {
                 $("#purchaseForm").validate({
                     rules: {
-                        "Model.billName": "required",
-                        "Model.billAdd1": "required",
-                        "Model.billState": "required",
-                        "Model.billZip": "required",
-                        "Model.year": "required",
-                        "Model.month": "required",
-                        "Model.cvv": "required",
-                        "Model.card": "required",
+                        name : "required",
+                        add : "required",
+                        state : "required",
+                        zip : "required",
+                        year : "required",
+                        month : "required",
+                        cvv : "required",
+                        card : "required"
                     }
                 });
             }
@@ -240,6 +228,10 @@
                     alert("wrong");
                 }
             });
+        });
+
+        document.getElementById('cardnumber').addEventListener('input', function (e) {
+            e.target.value = e.target.value.replace(/[^\dA-Z]/g, '').replace(/(.{4})/g, '$1 ').trim();
         });
     </script>
 }
