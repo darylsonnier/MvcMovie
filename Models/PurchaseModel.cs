@@ -12,18 +12,14 @@ namespace MvcMovie.Models
     public class PurchaseModel
     {
         [DisplayName("Name")]
-        [Required]
         public string shipName { get; set; }
         [DisplayName("Address 1")]
-        [Required]
         public string shipAdd1 { get; set; }
         [DisplayName("Address 2")]
         public string shipAdd2 { get; set; }
         [DisplayName("State")]
-        [Required]
         public stateList shipState { get; set; }
         [DisplayName("Zip Code")]
-        [Required]
         public string shipZip { get; set; }
 
         [Required]
@@ -44,10 +40,16 @@ namespace MvcMovie.Models
         [Required]
         [CreditCard]
         [DisplayName("Credit Card")]
-        public int creditcard { get; set; }
-
-        //public IEnumerable<SelectListItem> States { get; private set; }
-
+        public int card { get; set; }
+        [Required]
+        [DisplayName("CVV")]
+        public int cvv { get; set; }
+        [Required]
+        [DisplayName("Month")]
+        public monthList month { get; set; }
+        [Required]
+        [DisplayName("Year")]
+        public yearList year { get; set; }
     }
     public enum stateList
     {
@@ -113,5 +115,41 @@ namespace MvcMovie.Models
         WestVirginia,
         Wisconsin,
         Wyoming
+    }
+
+    public enum monthList
+    {
+        January,
+        February,
+        March,
+        April,
+        May,
+        June,
+        July,
+        August,
+        September,
+        October,
+        November,
+        December
+    }
+
+    public enum yearList
+    {
+        [Display(Name = "2020")]
+        one = 2020,
+        [Display(Name = "2021")]
+        two = 2021,
+        [Display(Name = "2022")]
+        three = 2022,
+        [Display(Name = "2023")]
+        four = 2023,
+        [Display(Name = "2024")]
+        five = 2024,
+        [Display(Name = "2025")]
+        six = 2025,
+        [Display(Name = "2026")]
+        seven = 2026,
+        [Display(Name = "2027")]
+        eight = 2027
     }
 }

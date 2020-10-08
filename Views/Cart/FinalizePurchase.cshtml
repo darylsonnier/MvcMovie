@@ -1,11 +1,11 @@
 ﻿@using MvcMovie.Models
 @model PurchaseModel
 @{ ViewData["Title"] = "FinalizePurchase";
-                Layout = "~/Views/Shared/_Layout.cshtml"; }
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
 
 <h1>Finalize Purchase</h1>
 
-<table cellpadding="2" cellspacing="2" border="1" class="table">
+<table cellpadding="2" cellspacing="2" border="1" class="table mList">
     <tr>
         <th>Title</th>
         <th>Price</th>
@@ -19,8 +19,7 @@
     <td>@item.Movie.Price</td>
     <td>@item.Quantity</td>
     <td>@(item.Movie.Price * item.Quantity)</td>
-</tr>
-}
+</tr>}
     <tr>
         <td align="right" colspan="3">Subtotal</td>
         <td>
@@ -55,126 +54,155 @@
     </tr>
 
 </table>
+<div>
+    <p>Shipping Address same as Billing Address:  Yes <input type="radio" onclick="javascript:yesnoCheck();" name="yesno" id="yesCheck" checked="checked"> No <input type="radio" onclick="javascript:yesnoCheck();" name="yesno" id="noCheck"></p>
+</div>
 <form asp-action="Invoice" asp-controller="Cart" onsubmit="return checkReqFields()" id="purchaseForm">
-    <h2>Shipping Address</h2>
-    <table>
-        <tr>
+    <table class="mList float-left" width="45%">
+        <tr colspan="2">
             <td>
-                <label asp-for="shipName"></label>
-            </td>
-            <td>
-                @Html.TextBox("shipName")
+                <h2>Billing Address</h2>
             </td>
         </tr>
         <tr>
             <td>
-                <label asp-for="shipAdd1"></label>
+                <label asp-for="billName"></label>
             </td>
             <td>
-                @Html.TextBox("shipAdd1")
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label asp-for="shipAdd2"></label>
-            </td>
-            <td>
-                @Html.TextBox("shipAdd2")
+                @Html.TextBoxFor(m => m.billName, new { placeholder = "John Doe", @class = "form-control" })
             </td>
         </tr>
         <tr>
             <td>
-                <fieldset>
-                    <label asp-for="shipState"></label>
-                </fieldset>
+                <label asp-for="billAdd1"></label>
             </td>
             <td>
-                @Html.DropDownListFor(m => Model.shipState, new SelectList(Enum.GetValues(typeof(stateList))), "Select State")
+                @Html.TextBoxFor(m => m.billAdd1, new { placeholder = "123 Easy Street", @class = "form-control" })
             </td>
         </tr>
         <tr>
             <td>
-                <label asp-for="shipZip"></label>
+                <label asp-for="billAdd2"></label>
             </td>
             <td>
-                @Html.TextBox("shipZip")
+                @Html.TextBoxFor(m => m.billAdd2, new { placeholder = "Apt 110", @class = "form-control" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="billState">State</label>
+            </td>
+            <td>
+                @Html.DropDownListFor(m => Model.billState, Html.GetEnumSelectList<stateList>(), "Select State", new { @class = "form-control" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="billZip"></label>
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.billZip, new { placeholder = "00000", @class = "form-control" })
             </td>
         </tr>
     </table>
-    <p><br>Billing Address same as Shipping Address:  Yes <input type="radio" onclick="javascript:yesnoCheck();" name="yesno" id="yesCheck" checked="checked"> No <input type="radio" onclick="javascript:yesnoCheck();" name="yesno" id="noCheck"><br></p>
     <div id="ifYes" style="display:none">
-        <table>
-            <tr>
-                <td colspan="2">
-                    <h2>Billing Address</h2>
-                </td>
-
-            </tr>
-            <tr>
+        <table class="mList float-right" width="45%">
+            <tr colspan="2">
                 <td>
-                    <label asp-for="billName"></label>
-                </td>
-                <td>
-                    @Html.TextBox("billName")
+                    <h2>Shipping Address</h2>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label asp-for="billAdd1"></label>
+                    <label asp-for="shipName"></label>
                 </td>
                 <td>
-                    @Html.TextBox("billAdd1")
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label asp-for="billAdd2"></label>
-                </td>
-                <td>
-                    @Html.TextBox("billAdd2")
+                    @Html.TextBoxFor(m => m.shipName, new { placeholder = "John Doe", @class = "form-control" , @id = "shipName"})
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label asp-for="billState">State</label>
+                    <label asp-for="shipAdd1"></label>
                 </td>
                 <td>
-                    @Html.DropDownListFor(m => Model.billState, new SelectList(Enum.GetValues(typeof(stateList))), "Select State")
+                    @Html.TextBoxFor(m => m.shipAdd1, new { placeholder = "123 Easy Street", @class = "form-control" })
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label asp-for="billZip"></label>
+                    <label asp-for="shipAdd2"></label>
                 </td>
                 <td>
-                    @Html.TextBox("billZip")
-                    <p><br /></p>
+                    @Html.TextBoxFor(m => m.shipAdd2, new { placeholder = "Apt 110", @class = "form-control" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <fieldset>
+                        <label asp-for="shipState"></label>
+                    </fieldset>
+                </td>
+                <td>
+                    @Html.DropDownListFor(m => Model.shipState, Html.GetEnumSelectList<stateList>(), "Select State", new { @class = "form-control" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="shipZip"></label>
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m.shipZip, new { placeholder = "00000", @class = "form-control" })
                 </td>
             </tr>
         </table>
+
     </div>
-    <table>
-        <tr>
-            <td colspan="2">
+    <table class="mList" width="100%">
+        <tr colspan="5">
+            <td>
                 <h3>Credit Card</h3>
             </td>
         </tr>
         <tr>
-            <td>
-                <label asp-for="creditcard"></label>
+            <td width="20%">
+                <label asp-for="card"></label>
             </td>
-            <td>
-                @Html.TextBox("creditcard")
-                <!--<input type="number" placeholder="0000-0000-0000-0000" pattern="[0-9]{4}[0-9]{4}[0-9]{4}[0-9]{4}[0-9]{4}[0-9]{4}" required maxlength="16" />-->
+            <td width="20%">
+                @Html.TextBoxFor(m => m.card, new { placeholder = "0000 0000 0000 0000", @class = "form-control" })
+            </td>
+            <td width="20%" align="right">
+                <label asp-for="cvv"></label>
+            </td>
+            <td width="20%">
+                @Html.TextBoxFor(m => m.cvv, new { placeholder = "000", @class = "form-control" })
+            </td>
+            <td width="20%">
             </td>
         </tr>
+        <tr>
+            <td width="20%">
+                <label asp-for="month"></label>
+            </td>
+            <td width="20%">
+                @Html.DropDownListFor(m => Model.month, Html.GetEnumSelectList<monthList>(), "Select Month", new { @class = "form-control" })
+            </td>
+            <td width="20%" align="right">
+                <label asp-for="year"></label>
+            </td>
+            <td width="20%">
+                @Html.DropDownListFor(m => Model.year, Html.GetEnumSelectList<yearList>(), "Select Year", new { @class = "form-control" })
+            </td>
+            <td width="20%">
+            </td>
+        </tr>
+
     </table>
     <input type="submit" value="Purchase" />
 </form>
 @section Scripts {
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
     <script type="text/javascript">
-        $(function () {
+        /*$(function () {
             // Silly example to demonstrate.
             $('purchaseForm').validate().form();
 
@@ -183,6 +211,35 @@
             } else {
                 console.log("valid!");
             }
+
+        });*/
+
+        $(document).ready(function () {
+            var checkformValidation = function () {
+                $("#purchaseForm").validate({
+                    rules: {
+                        "Model.billName": "required",
+                        "Model.billAdd1": "required",
+                        "Model.billState": "required",
+                        "Model.billZip": "required",
+                        "Model.year": "required",
+                        "Model.month": "required",
+                        "Model.cvv": "required",
+                        "Model.card": "required",
+                    }
+                });
+            }
+
+            $('#submitApp').click(function (e) {
+                e.preventDefault();
+                checkformValidation();
+                if ($("#purchaseForm").valid()) {
+                    alert("success");
+                    return;
+                } else {
+                    alert("wrong");
+                }
+            });
         });
     </script>
 }
