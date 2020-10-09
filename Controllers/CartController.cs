@@ -62,28 +62,28 @@ namespace MvcMovie.Controllers
          public ActionResult Invoice(PurchaseModel model)
         {
             var cart = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
-            if (model.shipName == null || model.shipAdd1 == null || model.shipState.ToString() == string.Empty || model.shipZip == null)
+            if (model.ShipName == null || model.ShipAdd1 == null || model.ShipState.ToString() == string.Empty || model.ShipZip == null)
             {
-                ViewBag.shipName = model.billName;
-                ViewBag.shipAdd1 = model.billAdd1;
-                ViewBag.shipAdd2 = model.billAdd2;
-                ViewBag.shipState = model.billState;
-                ViewBag.shipZip = model.billZip;
+                ViewBag.ShipName = model.BillName;
+                ViewBag.ShipAdd1 = model.BillAdd1;
+                ViewBag.ShipAdd2 = model.BillAdd2;
+                ViewBag.ShipState = model.BillState;
+                ViewBag.ShipZip = model.BillZip;
             }
             else
             {
-                ViewBag.shipName = model.shipName;
-                ViewBag.shipAdd1 = model.shipAdd1;
-                ViewBag.shipAdd2 = model.shipAdd2;
-                ViewBag.shipState = model.shipState;
-                ViewBag.shipZip = model.shipZip;
+                ViewBag.ShipName = model.ShipName;
+                ViewBag.ShipAdd1 = model.ShipAdd1;
+                ViewBag.ShipAdd2 = model.ShipAdd2;
+                ViewBag.ShipState = model.ShipState;
+                ViewBag.ShipZip = model.ShipZip;
             }
             
-            ViewBag.billName = model.billName;
-            ViewBag.billAdd1 = model.billAdd1;
-            ViewBag.billAdd2 = model.billAdd2;
-            ViewBag.billState = model.billState;
-            ViewBag.billZip = model.billZip;
+            ViewBag.BillName = model.BillName;
+            ViewBag.BillAdd1 = model.BillAdd1;
+            ViewBag.BillAdd2 = model.BillAdd2;
+            ViewBag.BillState = model.BillState;
+            ViewBag.BillZip = model.BillZip;
             ViewBag.cart = cart.OrderBy(x => x.Movie.Title);
             ViewBag.subtotal = cart.Sum(item => item.Movie.Price * item.Quantity);
             ViewBag.tax = Math.Round(ViewBag.subtotal * (decimal)0.08, 2);
@@ -91,8 +91,8 @@ namespace MvcMovie.Controllers
             ViewBag.shipping = ViewBag.subtotal > (decimal)50.0 ? (decimal)0.00 : (decimal)4.99;
             ViewBag.total = Math.Round(ViewBag.subtotal + ViewBag.tax + ViewBag.shipping - ViewBag.discount, 2);
             HttpContext.Session.Clear();
-            ViewBag.totalItems = HttpContext.Session.GetInt32("totalItems");
             HttpContext.Session.SetInt32("totalItems", 0);
+            ViewBag.totalItems = HttpContext.Session.GetInt32("totalItems");
             return View();
         }
 

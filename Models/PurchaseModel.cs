@@ -12,46 +12,35 @@ namespace MvcMovie.Models
     public class PurchaseModel
     {
         [DisplayName("Name")]
-        public string shipName { get; set; }
+        public string ShipName { get; set; }
         [DisplayName("Address 1")]
-        public string shipAdd1 { get; set; }
+        public string ShipAdd1 { get; set; }
         [DisplayName("Address 2")]
-        public string shipAdd2 { get; set; }
+        public string ShipAdd2 { get; set; }
         [DisplayName("State")]
-        public stateList shipState { get; set; }
+        public StateList ShipState { get; set; }
         [DisplayName("Zip Code")]
-        public string shipZip { get; set; }
-
-        [Required]
+        public string ShipZip { get; set; }
         [DisplayName("Name")]
-        public string billName { get; set; }
-
-        [Required]
+        public string BillName { get; set; }
         [DisplayName("Address 1")]
-        public string billAdd1 { get; set; }
+        public string BillAdd1 { get; set; }
         [DisplayName("Address 2")]
-        public string billAdd2 { get; set; }
-        [Required]
+        public string BillAdd2 { get; set; }
         [DisplayName("State")]
-        public stateList billState { get; set; }
-        [Required]
+        public StateList BillState { get; set; }
         [DisplayName("Zip Code")]
-        public string billZip { get; set; }
-        [Required]
-        [CreditCard]
+        public string BillZip { get; set; }
         [DisplayName("Credit Card")]
-        public int card { get; set; }
-        [Required]
+        public int Card { get; set; }
         [DisplayName("CVV")]
-        public int cvv { get; set; }
-        [Required]
+        public int Cvv { get; set; }
         [DisplayName("Month")]
-        public monthList month { get; set; }
-        [Required]
+        public MonthList Month { get; set; }
         [DisplayName("Year")]
-        public yearList year { get; set; }
+        public YearList Year { get; set; }
     }
-    public enum stateList
+    public enum StateList
     {
         Alabama,
         Alaska,
@@ -117,23 +106,23 @@ namespace MvcMovie.Models
         Wyoming
     }
 
-    public enum monthList
+    public enum MonthList
     {
-        January,
-        February,
-        March,
-        April,
+        Jan,
+        Feb,
+        Mar,
+        Apr,
         May,
-        June,
-        July,
-        August,
-        September,
-        October,
-        November,
-        December
+        Jun,
+        Jul,
+        Aug,
+        Sep,
+        Oct,
+        Nov,
+        Dec
     }
 
-    public enum yearList
+    public enum YearList
     {
         [Display(Name = "2020")]
         one = 2020,

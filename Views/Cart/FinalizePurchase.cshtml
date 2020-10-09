@@ -66,42 +66,42 @@
         </tr>
         <tr>
             <td>
-                <label asp-for="billName"></label>
+                <label asp-for="BillName"></label>
             </td>
             <td>
-                @Html.TextBoxFor(m => m.billName, new { id = "name", placeholder = "John Doe", @class = "form-control" })
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label asp-for="billAdd1"></label>
-            </td>
-            <td>
-                @Html.TextBoxFor(m => m.billAdd1, new { id = "add", placeholder = "123 Easy Street", @class = "form-control" })
+                @Html.TextBoxFor(m => m.BillName, new { id = "name", placeholder = "John Doe", @class = "form-control" })
             </td>
         </tr>
         <tr>
             <td>
-                <label asp-for="billAdd2"></label>
+                <label asp-for="BillAdd1"></label>
             </td>
             <td>
-                @Html.TextBoxFor(m => m.billAdd2, new { placeholder = "Apt 110", @class = "form-control" })
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label asp-for="billState">State</label>
-            </td>
-            <td>
-                @Html.DropDownListFor(m => Model.billState, Html.GetEnumSelectList<stateList>(), "Select State", new { id = "state", @class = "form-control" })
+                @Html.TextBoxFor(m => m.BillAdd1, new { id = "add", placeholder = "123 Easy Street", @class = "form-control" })
             </td>
         </tr>
         <tr>
             <td>
-                <label asp-for="billZip"></label>
+                <label asp-for="BillAdd2"></label>
             </td>
             <td>
-                @Html.TextBoxFor(m => m.billZip, new { id = "zip", placeholder = "00000", @class = "form-control" })
+                @Html.TextBoxFor(m => m.BillAdd2, new { placeholder = "Apt 110", @class = "form-control" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="BillState">State</label>
+            </td>
+            <td>
+                @Html.DropDownListFor(m => Model.BillState, Html.GetEnumSelectList<StateList>(), "Select State", new { id = "state", @class = "form-control" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label asp-for="BillZip"></label>
+            </td>
+            <td>
+                @Html.TextBoxFor(m => m.BillZip, new { id = "zip", placeholder = "00000", @class = "form-control" })
             </td>
         </tr>
     </table>
@@ -114,44 +114,44 @@
             </tr>
             <tr>
                 <td>
-                    <label asp-for="shipName"></label>
+                    <label asp-for="ShipName"></label>
                 </td>
                 <td>
-                    @Html.TextBoxFor(m => m.shipName, new { placeholder = "John Doe", @class = "form-control" , @id = "shipName"})
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label asp-for="shipAdd1"></label>
-                </td>
-                <td>
-                    @Html.TextBoxFor(m => m.shipAdd1, new { placeholder = "123 Easy Street", @class = "form-control" })
+                    @Html.TextBoxFor(m => m.ShipName, new { placeholder = "John Doe", @class = "form-control" , @id = "ShipName"})
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label asp-for="shipAdd2"></label>
+                    <label asp-for="ShipAdd1"></label>
                 </td>
                 <td>
-                    @Html.TextBoxFor(m => m.shipAdd2, new { placeholder = "Apt 110", @class = "form-control" })
+                    @Html.TextBoxFor(m => m.ShipAdd1, new { placeholder = "123 Easy Street", @class = "form-control" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="ShipAdd2"></label>
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m.ShipAdd2, new { placeholder = "Apt 110", @class = "form-control" })
                 </td>
             </tr>
             <tr>
                 <td>
                     <fieldset>
-                        <label asp-for="shipState"></label>
+                        <label asp-for="ShipState"></label>
                     </fieldset>
                 </td>
                 <td>
-                    @Html.DropDownListFor(m => Model.shipState, Html.GetEnumSelectList<stateList>(), "Select State", new { @class = "form-control" })
+                    @Html.DropDownListFor(m => Model.ShipState, Html.GetEnumSelectList<StateList>(), "Select State", new { @class = "form-control" })
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label asp-for="shipZip"></label>
+                    <label asp-for="ShipZip"></label>
                 </td>
                 <td>
-                    @Html.TextBoxFor(m => m.shipZip, new { placeholder = "00000", @class = "form-control" })
+                    @Html.TextBoxFor(m => m.ShipZip, new { placeholder = "00000", @class = "form-control" })
                 </td>
             </tr>
         </table>
@@ -165,32 +165,32 @@
         </tr>
         <tr>
             <td width="20%">
-                <label asp-for="card"></label>
+                <label asp-for="Card"></label>
             </td>
             <td width="20%">
-                @Html.TextBoxFor(m => m.card, new { id = "card",  placeholder = "0000 0000 0000 0000", @class = "form-control", @maxlength = "16", @minlength = "14" })
+                @Html.TextBoxFor(m => m.Card, new { id = "card",  placeholder = "0000 0000 0000 0000", @class = "form-control", maxlength = "19", minlength = "14" })
             </td>
             <td width="20%" align="right">
-                <label asp-for="cvv"></label>
+                <label asp-for="Cvv"></label>
             </td>
             <td width="20%">
-                @Html.TextBoxFor(m => m.cvv, new { id = "cvv", placeholder = "000", @class = "form-control" })
+                @Html.TextBoxFor(m => m.Cvv, new { id = "cvv", placeholder = "000", @class = "form-control", minlength = "3", maxlength = "4" })
             </td>
             <td width="20%">
             </td>
         </tr>
         <tr>
             <td width="20%">
-                <label asp-for="month"></label>
+                <label asp-for="Month"></label>
             </td>
             <td width="20%">
-                @Html.DropDownListFor(m => Model.month, Html.GetEnumSelectList<monthList>(), "Select Month", new { id = "month", @class = "form-control" })
+                @Html.DropDownListFor(m => Model.Month, Html.GetEnumSelectList<MonthList>(), "Select Month", new { id = "month", @class = "form-control" })
             </td>
             <td width="20%" align="right">
-                <label asp-for="year"></label>
+                <label asp-for="Year"></label>
             </td>
             <td width="20%">
-                @Html.DropDownListFor(m => Model.year, Html.GetEnumSelectList<yearList>(), "Select Year", new { id = "year", @class = "form-control" })
+                @Html.DropDownListFor(m => Model.Year, Html.GetEnumSelectList<YearList>(), "Select Year", new { id = "year", @class = "form-control" })
             </td>
             <td width="20%">
             </td>
@@ -230,7 +230,7 @@
             });
         });
 
-        document.getElementById('cardnumber').addEventListener('input', function (e) {
+        document.getElementById('card').addEventListener('input', function (e) {
             e.target.value = e.target.value.replace(/[^\dA-Z]/g, '').replace(/(.{4})/g, '$1 ').trim();
         });
     </script>
