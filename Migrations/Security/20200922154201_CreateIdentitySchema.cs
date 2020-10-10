@@ -1,5 +1,6 @@
-﻿using System;
+﻿#pragma warning disable 1591
 using Microsoft.EntityFrameworkCore.Migrations;
+using System;
 
 namespace MvcMovie.Migrations.Security
 {

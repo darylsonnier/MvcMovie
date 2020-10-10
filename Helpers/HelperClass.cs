@@ -1,18 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace MvcMovie.Helpers
+﻿namespace MvcMovie.Helpers
 {
+    /// <summary>
+    /// The HelperClass class contains helper functions.
+    /// </summary>
     public class HelperClass
     {
-        /* Combine function replaces spaces with underscores.  
-         * Used for creating a pattern to div IDs for the JavaScript function that displays modals for the plot description of movies.
-         */
+        /// <summary>
+        /// The Combine function replaces spaces with underscores.   
+        /// It is used for creating a pattern to div IDs for the JavaScript function that displays modals for the plot description of movies.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
         public static string Combine(string a, string b)
         {
-            return  a.Replace(" ", "_") + b;
+            return a.Replace(" ", "_") + b;
         }
     }
 }

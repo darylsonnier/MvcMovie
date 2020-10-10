@@ -18,24 +18,3 @@ function yesnoCheck() {
 
 }
 
-function checkReqFields() {
-	var returnValue;
-	var name = document.getElementById("shipName").value;
-	var address1 = document.getElementById("shipAdd1").value;
-	var address2 = document.getElementById("billAdd1").value;
-	var name1 = document.getElementById("shipName").value;
-	var name2 = document.getElementById("billName").value;
-
-
-
-	returnValue = true;
-	if (name.trim() == "") {
-		document.getElementById("shipName").innerHTML = "* Name is required.";
-		returnValue = false;
-	}
-	if (address.trim() == "") {
-		document.getElementById("shipAdd1").innerHTML = "* Address is required.";
-		returnValue = false;
-	}
-	return returnValue;
-}

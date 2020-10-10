@@ -6,8 +6,15 @@ using System.Linq;
 
 namespace MvcMovie.Models
 {
+    /// <summary>
+    /// The SeedData class seeds an empty movie database.
+    /// </summary>
     public static class SeedData
     {
+        /// <summary>
+        /// The Initialize method adds some basic information to the database if it is empty.
+        /// </summary>
+        /// <param name="serviceProvider"></param>
         public static void Initialize(IServiceProvider serviceProvider)
         {
             using (var context = new MvcMovieContext(

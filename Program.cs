@@ -2,14 +2,20 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using MvcMovie.Data;
 using MvcMovie.Models;
 using System;
 
 namespace MvcMovie
 {
+    /// <summary>
+    /// The Program class defines the entry point for the program.
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        /// The Main method creates the entry point for the program to operate.
+        /// </summary>
+        /// <param name="args"></param>
         public static void Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
@@ -33,6 +39,11 @@ namespace MvcMovie
 
         }
 
+        /// <summary>
+        /// The CreateHostBuilder method starts the web service.
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>

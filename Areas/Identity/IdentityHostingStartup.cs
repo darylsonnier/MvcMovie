@@ -1,7 +1,6 @@
-﻿using System;
+﻿#pragma warning disable 1591
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,7 +13,8 @@ namespace MvcMovie.Areas.Identity
     {
         public void Configure(IWebHostBuilder builder)
         {
-            builder.ConfigureServices((context, services) => {
+            builder.ConfigureServices((context, services) =>
+            {
                 services.AddDbContext<SecurityContext>(options =>
                     options.UseSqlServer(
                         context.Configuration.GetConnectionString("SecurityContextConnection")));

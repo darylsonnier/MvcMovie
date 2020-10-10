@@ -1,36 +1,42 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using MvcMovie.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MvcMovie.Data;
 
 namespace MvcMovie
 {
+    /// <summary>
+    /// The Startup class defines the initial starting conditions for the web application.
+    /// </summary>
     public class Startup
     {
+        /// <summary>
+        /// The constuctor provides the configuration to the application.
+        /// It takes in a configuration object.
+        /// </summary>
+        /// <param name="configuration"></param>
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
+        /// <summary>
+        /// The Configuration is read only.
+        /// </summary>
         public IConfiguration Configuration { get; }
-
+        /// <summary>
+        /// The ConfigureServices method is used to add services.
+        /// </summary>
+        /// <param name="services"></param>
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<MvcMovieContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("MvcMovieContext")));
-            
+
             services.AddDbContext<SecurityContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("SecurityContext")));
             services.AddControllersWithViews();
@@ -38,6 +44,11 @@ namespace MvcMovie
             services.AddRazorPages();
         }
 
+        /// <summary>
+        /// The Configure method configures the HTTP request pipeline.
+        /// </summary>
+        /// <param name="app"></param>
+        /// <param name="env"></param>
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

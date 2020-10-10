@@ -1,29 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using MvcMovie.Data;
 using MvcMovie.Helpers;
 using MvcMovie.Models;
-using MvcMovie.Data;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MvcMovie.Controllers
 {
+    /// <summary>
+    /// The CartController serves the views for the shopping cart.
+    /// </summary>
     [Authorize]
     public class CartController : Controller
     {
         private readonly MvcMovieContext _context;
 
+        /// <summary>
+        /// The constructor provides the shopping cart with access to the movie database.
+        /// </summary>
+        /// <param name="context"></param>
         public CartController(MvcMovieContext context)
         {
             _context = context;
         }
 
-        
+        /// <summary>
+        /// The Index method returns the shopping cart view.
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Index()
         {
             if (!HttpContext.Session.TryGetValue("cart", out byte[] value))
@@ -46,6 +53,10 @@ namespace MvcMovie.Controllers
 
         }
 
+        /// <summary>
+        /// The FinalizePurchase method returns the FinalizePurchase page for entering the billing address, shipping address and purchaser credit card inforamtion.
+        /// </summary>
+        /// <returns></returns>
         public IActionResult FinalizePurchase()
         {
             var cart = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
@@ -59,7 +70,13 @@ namespace MvcMovie.Controllers
             return View();
         }
 
-         public ActionResult Invoice(PurchaseModel model)
+        /// <summary>
+        /// The Invoice method returns the Invoice view.
+        /// This is a final summary of the purchase.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public ActionResult Invoice(PurchaseModel model)
         {
             var cart = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
             if (model.ShipName == null || model.ShipAdd1 == null || model.ShipState.ToString() == string.Empty || model.ShipZip == null)
@@ -78,7 +95,7 @@ namespace MvcMovie.Controllers
                 ViewBag.ShipState = model.ShipState;
                 ViewBag.ShipZip = model.ShipZip;
             }
-            
+
             ViewBag.BillName = model.BillName;
             ViewBag.BillAdd1 = model.BillAdd1;
             ViewBag.BillAdd2 = model.BillAdd2;
@@ -96,6 +113,13 @@ namespace MvcMovie.Controllers
             return View();
         }
 
+        /// <summary>
+        /// The Buy method adds a movie to the shopping cart.
+        /// It takes in an id parameter, which is the movie title, and a goBack parameter, which is the genre page the user was browsing.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="goBack"></param>
+        /// <returns></returns>
         public IActionResult Buy(string id, string goBack)
         {
             var Movies = from m in _context.Movie select m;
@@ -110,7 +134,7 @@ namespace MvcMovie.Controllers
             else
             {
                 List<Item> cart = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
-                int index = isExist(id);
+                int index = DoesExist(id);
                 if (index != -1)
                 {
                     cart[index].Quantity++;
@@ -129,10 +153,16 @@ namespace MvcMovie.Controllers
             return RedirectToAction("MoviesByGenre", "Movies", new { @id = goBack });
         }
 
+        /// <summary>
+        /// The Remove method removes all instances of a movie from the shopping cart.
+        /// It takes in an id parameter, which is the movie title.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public IActionResult Remove(string id)
         {
             List<Item> cart = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
-            int index = isExist(id);
+            int index = DoesExist(id);
             cart.RemoveAt(index);
             SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
             HttpContext.Session.SetInt32("totalItems", cart.Select(x => x.Quantity).ToList().Sum());
@@ -140,10 +170,16 @@ namespace MvcMovie.Controllers
             return RedirectToAction("Index");
         }
 
+        /// <summary>
+        /// The Increment method adds one additional copy of a movie to the shopping cart.
+        /// It takes in an id parameter, which is the movie title.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public IActionResult Increment(string id)
         {
             List<Item> cart = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
-            int index = isExist(id);
+            int index = DoesExist(id);
             cart[index].Quantity++;
             SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
             HttpContext.Session.SetInt32("totalItems", cart.Select(x => x.Quantity).ToList().Sum());
@@ -151,10 +187,16 @@ namespace MvcMovie.Controllers
             return RedirectToAction("Index");
         }
 
+        /// <summary>
+        /// The Decrement method removes one copy of a movie from the shopping cart.
+        /// It takes in an id parameter, which is the movie title.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public IActionResult Decrement(string id)
         {
             List<Item> cart = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
-            int index = isExist(id);
+            int index = DoesExist(id);
             cart[index].Quantity--;
             if (cart[index].Quantity < 1)
             {
@@ -166,7 +208,13 @@ namespace MvcMovie.Controllers
             return RedirectToAction("Index");
         }
 
-        private int isExist(string id)
+        /// <summary>
+        /// The DoesExist method verifies a movie is in the database.
+        /// It takes in an id parameter, which is the movie title.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        private int DoesExist(string id)
         {
             List<Item> cart = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
             for (int i = 0; i < cart.Count; i++)

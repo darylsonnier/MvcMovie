@@ -1,0 +1,581 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MvcMovie</name>
+    </assembly>
+    <members>
+        <member name="T:MvcMovie.Data.SecurityContext">
+            <summary>
+            The SecurityContext is the database context for the Identity service.
+            </summary>
+        </member>
+        <member name="M:MvcMovie.Data.SecurityContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{MvcMovie.Data.SecurityContext})">
+            <summary>
+            The contsurctor takes in the database context options.
+            </summary>
+            <param name="options"></param>
+        </member>
+        <member name="M:MvcMovie.Data.SecurityContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <summary>
+            The OnModelCreating method allows for customizations to the Identity model.
+            No customizations were included.
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="T:MvcMovie.Data.MvcMovieContext">
+            <summary>
+            The MvcMovieContext class defines the database context for the Movies model.
+            </summary>
+        </member>
+        <member name="M:MvcMovie.Data.MvcMovieContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{MvcMovie.Data.MvcMovieContext})">
+            <summary>
+            The constructor takes in DbContextOptions.
+            </summary>
+            <param name="options"></param>
+        </member>
+        <member name="P:MvcMovie.Data.MvcMovieContext.Movie">
+            <summary>
+            The Movie field is the DbSet for the context.
+            </summary>
+        </member>
+        <member name="T:MvcMovie.Controllers.CartController">
+            <summary>
+            The CartController serves the views for the shopping cart.
+            </summary>
+        </member>
+        <member name="M:MvcMovie.Controllers.CartController.#ctor(MvcMovie.Data.MvcMovieContext)">
+            <summary>
+            The constructor provides the shopping cart with access to the movie database.
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:MvcMovie.Controllers.CartController.Index">
+            <summary>
+            The Index method returns the shopping cart view.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MvcMovie.Controllers.CartController.FinalizePurchase">
+            <summary>
+            The FinalizePurchase method returns the FinalizePurchase page for entering the billing address, shipping address and purchaser credit card inforamtion.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MvcMovie.Controllers.CartController.Invoice(MvcMovie.Models.PurchaseModel)">
+            <summary>
+            The Invoice method returns the Invoice view.
+            This is a final summary of the purchase.
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MvcMovie.Controllers.CartController.Buy(System.String,System.String)">
+            <summary>
+            The Buy method adds a movie to the shopping cart.
+            It takes in an id parameter, which is the movie title, and a goBack parameter, which is the genre page the user was browsing.
+            </summary>
+            <param name="id"></param>
+            <param name="goBack"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MvcMovie.Controllers.CartController.Remove(System.String)">
+            <summary>
+            The Remove method removes all instances of a movie from the shopping cart.
+            It takes in an id parameter, which is the movie title.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MvcMovie.Controllers.CartController.Increment(System.String)">
+            <summary>
+            The Increment method adds one additional copy of a movie to the shopping cart.
+            It takes in an id parameter, which is the movie title.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MvcMovie.Controllers.CartController.Decrement(System.String)">
+            <summary>
+            The Decrement method removes one copy of a movie from the shopping cart.
+            It takes in an id parameter, which is the movie title.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MvcMovie.Controllers.CartController.DoesExist(System.String)">
+            <summary>
+            The DoesExist method verifies a movie is in the database.
+            It takes in an id parameter, which is the movie title.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MvcMovie.Controllers.HomeController">
+            <summary>
+            HomeController is the controller for the main home page of the site.
+            </summary>
+        </member>
+        <member name="M:MvcMovie.Controllers.HomeController.#ctor(Microsoft.Extensions.Logging.ILogger{MvcMovie.Controllers.HomeController})">
+            <summary>
+            The constructor takes in a ILogger
+            </summary>
+            <param name="logger"></param>
+        </member>
+        <member name="M:MvcMovie.Controllers.HomeController.Index">
+            <summary>
+            The Index method returns the view for the Home page.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MvcMovie.Controllers.HomeController.Privacy">
+            <summary>
+            The Privacy method returns the view for the Privacy page.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MvcMovie.Controllers.HomeController.Error">
+            <summary>
+            The Error method returns an error page in the event that the controller cannot process an action.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:MvcMovie.Controllers.MoviesController">
+            <summary>
+            The Movies controller handles the pages for browsing the site's web store.
+            </summary>
+        </member>
+        <member name="M:MvcMovie.Controllers.MoviesController.#ctor(MvcMovie.Data.MvcMovieContext)">
+            <summary>
+            The constructor takes in a database context to provide data to the website.
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:MvcMovie.Controllers.MoviesController.Index">
+            <summary>
+            The Index method returns the genre page, which is the start of the web store experience.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MvcMovie.Controllers.MoviesController.AdminIndex(System.String,System.String)">
+            <summary>
+            The AdminIndex method provides the admin user with access to pages for CRUD operations.
+            It takes in search criteria to narrow the view based on genre or title.
+            </summary>
+            <param name="criteria"></param>
+            <param name="searchString"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MvcMovie.Controllers.MoviesController.MoviesByGenre(System.String)">
+            <summary>
+            The MoviesByGenre method returns the movie view filtered by the chosen genre.
+            It takes in an id which is the genre.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MvcMovie.Controllers.MoviesController.Details(System.Nullable{System.Int32})">
+            <summary>
+            The Details method returns a detail view for CRUD operations.
+            It takes in an id parameter, which is the title of the movie.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MvcMovie.Controllers.MoviesController.Create">
+            <summary>
+            The Create method returns a view for creating a new movie entry in the database CRUD operation.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MvcMovie.Controllers.MoviesController.Create(MvcMovie.Models.Movie)">
+            <summary>
+            This entry for the Create method takes in the pertinent fields for the database to create the movie entry.
+            </summary>
+            <param name="movie"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MvcMovie.Controllers.MoviesController.Edit(System.Nullable{System.Int32})">
+            <summary>
+            The Edit method returns a view for editing a movie entry via CRUD operation.
+            It takes in an id parameter, which is the movie title.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MvcMovie.Controllers.MoviesController.Edit(System.Int32,MvcMovie.Models.Movie)">
+            <summary>
+            This entry for Edit takes in the movie id and binds to the model fields for the movie.  It then updates the database context to save the edit.
+            </summary>
+            <param name="id"></param>
+            <param name="movie"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MvcMovie.Controllers.MoviesController.Delete(System.Nullable{System.Int32})">
+            <summary>
+            The Delete method deletes an entry from the movie database.
+            It takes in an id, which is the movie title.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MvcMovie.Controllers.MoviesController.DeleteConfirmed(System.Int32)">
+            <summary>
+            The DeleteConfirmed method confirms the admin user wishes to delete a movie.  
+            It takes in an id parameter, which is the movie id to be deleted.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MvcMovie.Controllers.MoviesController.MovieExists(System.Int32)">
+            <summary>
+            The MovieExists method confirms a movie exists in the database.
+            It takes in an id parameter, which is the private key index for the movie.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MvcMovie.Helpers.HelperClass">
+            <summary>
+            The HelperClass class contains helper functions.
+            </summary>
+        </member>
+        <member name="M:MvcMovie.Helpers.HelperClass.Combine(System.String,System.String)">
+            <summary>
+            The Combine function replaces spaces with underscores.   
+            It is used for creating a pattern to div IDs for the JavaScript function that displays modals for the plot description of movies.
+            </summary>
+            <param name="a"></param>
+            <param name="b"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MvcMovie.Helpers.SessionHelper">
+            <summary>
+            The SessionHelper class is used to serialize and deserialize data into json strings. 
+            It is sourced from http://learningprogramming.net/net/asp-net-core-mvc/build-shopping-cart-with-session-in-asp-net-core-mvc/
+            </summary>
+        </member>
+        <member name="M:MvcMovie.Helpers.SessionHelper.SetObjectAsJson(Microsoft.AspNetCore.Http.ISession,System.String,System.Object)">
+            <summary>
+            The SetObjectAsJson method serializes an object into a Json string.
+            </summary>
+            <param name="session"></param>
+            <param name="key"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:MvcMovie.Helpers.SessionHelper.GetObjectFromJson``1(Microsoft.AspNetCore.Http.ISession,System.String)">
+            <summary>
+            The GetObjectFromJson method deserializes a Json string into an object of the specified type.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="session"></param>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MvcMovie.Migrations.InitialCreate">
+            <summary>
+            The InitialCreate partial class is the base fields for the movie database.
+            </summary>
+        </member>
+        <member name="M:MvcMovie.Migrations.InitialCreate.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <summary>
+            The Up method adds the intial columns to the database.
+            These are ID, Title, ReleaseDate, Genre and Price.
+            </summary>
+            <param name="migrationBuilder"></param>
+        </member>
+        <member name="M:MvcMovie.Migrations.InitialCreate.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <summary>
+            The Drop method drops the Movie table entirely.
+            </summary>
+            <param name="migrationBuilder"></param>
+        </member>
+        <member name="T:MvcMovie.Migrations.ImageUrl">
+            <summary>
+            The ImageURL partial class is a migration for adding the ImageURL to the movies database.
+            </summary>
+        </member>
+        <member name="M:MvcMovie.Migrations.ImageUrl.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <summary>
+            The Up method adds an ImageURL column to the database.
+            </summary>
+            <param name="migrationBuilder"></param>
+        </member>
+        <member name="M:MvcMovie.Migrations.ImageUrl.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <summary>
+            The Down method drops the ImageURL column from the database.
+            </summary>
+            <param name="migrationBuilder"></param>
+        </member>
+        <member name="T:MvcMovie.Migrations.TrailerURL">
+            <summary>
+            The TrailerURL class is a migration for adding a TrailerURL field to the movies database.
+            </summary>
+        </member>
+        <member name="M:MvcMovie.Migrations.TrailerURL.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <summary>
+            The Up method adds a column for the TrailerURL to the database.
+            </summary>
+            <param name="migrationBuilder"></param>
+        </member>
+        <member name="M:MvcMovie.Migrations.TrailerURL.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <summary>
+            The Down method drops a column for the TrailerURL from the database.
+            </summary>
+            <param name="migrationBuilder"></param>
+        </member>
+        <member name="T:MvcMovie.Migrations.DescriptionField">
+            <summary>
+            The DescriptionField partial class is a migration to add a description field to the database context for a movie.
+            </summary>
+        </member>
+        <member name="M:MvcMovie.Migrations.DescriptionField.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <summary>
+            The Up method adds a column for a movie description to the database.
+            </summary>
+            <param name="migrationBuilder"></param>
+        </member>
+        <member name="M:MvcMovie.Migrations.DescriptionField.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <summary>
+            The Down method drops the column for a movie description from the database.
+            </summary>
+            <param name="migrationBuilder"></param>
+        </member>
+        <member name="T:MvcMovie.Models.ErrorViewModel">
+            <summary>
+            The ErrorViewModel class holds data for controllers in an error state.
+            </summary>
+        </member>
+        <member name="P:MvcMovie.Models.ErrorViewModel.RequestId">
+            <summary>
+            The RequestID field is the id for an errored request.
+            </summary>
+        </member>
+        <member name="P:MvcMovie.Models.ErrorViewModel.ShowRequestId">
+            <summary>
+            The ShowRequestId method returns true if the RequestID is not null.
+            </summary>
+        </member>
+        <member name="T:MvcMovie.Models.Item">
+            <summary>
+            The Item class is the model for the shopping cart.
+            </summary>
+        </member>
+        <member name="P:MvcMovie.Models.Item.Movie">
+            <summary>
+            The Movie field is a movie object.
+            </summary>
+        </member>
+        <member name="P:MvcMovie.Models.Item.Quantity">
+            <summary>
+            The Quantity field is the number of copies of a movie in the cart.
+            </summary>
+        </member>
+        <member name="T:MvcMovie.Models.Movie">
+            <summary>
+            The Movie class contains the model definition for a movie object.
+            </summary>
+        </member>
+        <member name="P:MvcMovie.Models.Movie.ID">
+            <summary>
+            The ID field is the private key id.
+            </summary>
+        </member>
+        <member name="P:MvcMovie.Models.Movie.Title">
+            <summary>
+            The Title field is the movie title.
+            </summary>
+        </member>
+        <member name="P:MvcMovie.Models.Movie.ReleaseDate">
+            <summary>
+            The ReleaseDate field is the release date for the movie.
+            </summary>
+        </member>
+        <member name="P:MvcMovie.Models.Movie.Genre">
+            <summary>
+            The Genre field is the movie's genre.
+            In some cases multiple genres are assigned separated by commas.
+            </summary>
+        </member>
+        <member name="P:MvcMovie.Models.Movie.Price">
+            <summary>
+            The Price field is the movie's selling price.
+            </summary>
+        </member>
+        <member name="P:MvcMovie.Models.Movie.ImageURL">
+            <summary>
+            The ImageURL field stores a link to a movie poster.
+            </summary>
+        </member>
+        <member name="P:MvcMovie.Models.Movie.TrailerURL">
+            <summary>
+            The TrailerURL field stores the YouTube ID for a movie's trailer.
+            </summary>
+        </member>
+        <member name="P:MvcMovie.Models.Movie.Description">
+            <summary>
+            The Description field stores the movie's plot description.
+            </summary>
+        </member>
+        <member name="T:MvcMovie.Models.PurchaseModel">
+            <summary>
+            PurchaseModel class
+            Models information for purchase.  Includes billing and shipping information as well as credit card purchase information.
+            </summary>
+        </member>
+        <member name="P:MvcMovie.Models.PurchaseModel.ShipName">
+            <summary>
+            ShipName is the name of the shipee.
+            </summary>
+        </member>
+        <member name="P:MvcMovie.Models.PurchaseModel.ShipAdd1">
+            <summary>
+            ShipAdd1 is line 1 of the shipee's address.
+            This is typically a street address or PO Box.
+            </summary>
+        </member>
+        <member name="P:MvcMovie.Models.PurchaseModel.ShipAdd2">
+            <summary>
+            ShipAdd2 is line 2 of the shipee's address.
+            This usually is an apartment number of similar.
+            </summary>
+        </member>
+        <member name="P:MvcMovie.Models.PurchaseModel.ShipState">
+            <summary>
+            ShipState is the state for the shipee's address.
+            It is of type StateList (enum of US States and districts)
+            </summary>
+        </member>
+        <member name="P:MvcMovie.Models.PurchaseModel.ShipZip">
+            <summary>
+            ShipZip is the shipee's zip code.
+            </summary>
+        </member>
+        <member name="P:MvcMovie.Models.PurchaseModel.BillName">
+            <summary>
+            BillName is the name of the purchaser.
+            </summary>
+        </member>
+        <member name="P:MvcMovie.Models.PurchaseModel.BillAdd1">
+            <summary>
+            BillAdd1 is line 1 of the purchaser's address.
+            It is typically a street address or PO Box and is tied to the credit card.
+            </summary>
+        </member>
+        <member name="P:MvcMovie.Models.PurchaseModel.BillAdd2">
+            <summary>
+            BillAdd2 is line 2 of the purchaser's address.
+            It is typically an apartment number or similar.
+            </summary>
+        </member>
+        <member name="P:MvcMovie.Models.PurchaseModel.BillState">
+            <summary>
+            BillState is the state of the purchaser's address.
+            It is of type StateList (enum of US States and districts).
+            </summary>
+        </member>
+        <member name="P:MvcMovie.Models.PurchaseModel.BillZip">
+            <summary>
+            BillZip is the zip code of the purchaser's address.
+            </summary>
+        </member>
+        <member name="P:MvcMovie.Models.PurchaseModel.Card">
+            <summary>
+            Card is the purchaser's credit or debit card number.
+            </summary>
+        </member>
+        <member name="P:MvcMovie.Models.PurchaseModel.Cvv">
+            <summary>
+            Cvv is the CVV security code of the purchaser's credit or debit card.
+            </summary>
+        </member>
+        <member name="P:MvcMovie.Models.PurchaseModel.Month">
+            <summary>
+            Month is the expiration month of the purchaser's credit or debit card.
+            It is of type MonthList (enum of months of the year).
+            </summary>
+        </member>
+        <member name="P:MvcMovie.Models.PurchaseModel.Year">
+            <summary>
+            Year is the expiration year of the purchaser's credit or debit card.
+            It is of type YearList (enum of years spanning from 2020 to 2027).
+            </summary>
+        </member>
+        <member name="T:MvcMovie.Models.StateList">
+            <summary>
+            StateList is an enum of the US states and districts.
+            It is used for drop down lists.
+            </summary>
+        </member>
+        <member name="T:MvcMovie.Models.MonthList">
+            <summary>
+            MonthList is an enum of the months in the year.
+            It is used for drop down lists.
+            </summary>
+        </member>
+        <member name="T:MvcMovie.Models.YearList">
+            <summary>
+            YearList is an enum of the years 2020 to 2027.
+            It is used for drop down lists.
+            </summary>
+        </member>
+        <member name="T:MvcMovie.Models.SeedData">
+            <summary>
+            The SeedData class seeds an empty movie database.
+            </summary>
+        </member>
+        <member name="M:MvcMovie.Models.SeedData.Initialize(System.IServiceProvider)">
+            <summary>
+            The Initialize method adds some basic information to the database if it is empty.
+            </summary>
+            <param name="serviceProvider"></param>
+        </member>
+        <member name="T:MvcMovie.Program">
+            <summary>
+            The Program class defines the entry point for the program.
+            </summary>
+        </member>
+        <member name="M:MvcMovie.Program.Main(System.String[])">
+            <summary>
+            The Main method creates the entry point for the program to operate.
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:MvcMovie.Program.CreateHostBuilder(System.String[])">
+            <summary>
+            The CreateHostBuilder method starts the web service.
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MvcMovie.Startup">
+            <summary>
+            The Startup class defines the initial starting conditions for the web application.
+            </summary>
+        </member>
+        <member name="M:MvcMovie.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            The constuctor provides the configuration to the application.
+            It takes in a configuration object.
+            </summary>
+            <param name="configuration"></param>
+        </member>
+        <member name="P:MvcMovie.Startup.Configuration">
+            <summary>
+            The Configuration is read only.
+            </summary>
+        </member>
+        <member name="M:MvcMovie.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            The ConfigureServices method is used to add services.
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:MvcMovie.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            The Configure method configures the HTTP request pipeline.
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
+        </member>
+    </members>
+</doc>
